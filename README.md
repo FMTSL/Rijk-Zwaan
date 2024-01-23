@@ -1,5 +1,6 @@
 # Rijk-Zwaan
-Projeto realizado pela DevSkin. 
+Projeto realizado pela DevSkin para a RIJK.
+
 1. Cotação e Estoque:
 - Reserva do estoque por 24h após a cotação; liberar no estoque 
 após esse período. 
