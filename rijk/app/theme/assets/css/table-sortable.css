@@ -1,0 +1,12 @@
+.gs-button {
+  cursor: pointer
+}
+
+
+.gs-table tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.gs-table tr:nth-child(even) {
+  background-color: rgb(245, 245, 245);
+}

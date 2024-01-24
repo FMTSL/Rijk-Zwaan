@@ -1,0 +1,30 @@
+# rijk
+
+SELECT setval('users_id_seq', (SELECT MAX(id) FROM users)+1);
+SELECT setval('address_id_seq', (SELECT MAX(id) FROM address)+1);
+SELECT setval('address_country_id_seq', (SELECT MAX(id) FROM address_country)+1);
+SELECT setval('address_state_id_seq', (SELECT MAX(id) FROM address_state)+1);
+SELECT setval('assist_delivery_type_id_seq', (SELECT MAX(id) FROM assist_delivery_type)+1);
+SELECT setval('assist_status_id_seq', (SELECT MAX(id) FROM assist_status)+1);
+SELECT setval('assist_tax_rates_id_seq', (SELECT MAX(id) FROM assist_tax_rates)+1);
+SELECT setval('customer_category_id_seq', (SELECT MAX(id) FROM customer_category)+1);
+SELECT setval('customer_category_to_credit_id_seq', (SELECT MAX(id) FROM customer_category_to_credit)+1);
+SELECT setval('customer_credit_deadline_id_seq', (SELECT MAX(id) FROM customer_credit_deadline)+1);
+SELECT setval('customer_payment_type_id_seq', (SELECT MAX(id) FROM customer_payment_type)+1);
+SELECT setval('category_id_seq', (SELECT MAX(id) FROM customer_type)+1);
+SELECT setval('customers_id_seq', (SELECT MAX(id) FROM customers)+1);
+SELECT setval('discount_id_seq', (SELECT MAX(id) FROM discount)+1);
+SELECT setval('order_cart_id_seq', (SELECT MAX(id) FROM order_cart)+1);
+SELECT setval('order_logistics_id_seq', (SELECT MAX(id) FROM order_logistics)+1);
+SELECT setval('orders_id_seq', (SELECT MAX(id) FROM orders)+1);
+SELECT setval('products_id_seq', (SELECT MAX(id) FROM products)+1);
+SELECT setval('products_calibre_id_seq', (SELECT MAX(id) FROM products_calibre)+1);
+SELECT setval('products_chemical_treatment_id_seq', (SELECT MAX(id) FROM products_chemical_treatment)+1);
+SELECT setval('products_crop_id_seq', (SELECT MAX(id) FROM products_crop)+1);
+SELECT setval('products_packaging_id_seq', (SELECT MAX(id) FROM products_packaging)+1);
+SELECT setval('products_sales_unit_id_seq', (SELECT MAX(id) FROM products_sales_unit)+1);
+SELECT setval('products_stock_id_seq', (SELECT MAX(id) FROM products_stock)+1);
+SELECT setval('products_variety_id_seq', (SELECT MAX(id) FROM products_variety)+1);
+SELECT setval('relationship_customer_address_id_seq', (SELECT MAX(id) FROM relationship_customer_address)+1);
+SELECT setval('salesman_id_seq', (SELECT MAX(id) FROM salesman)+1);
+SELECT setval('users_id_seq', (SELECT MAX(id) FROM users)+1);
