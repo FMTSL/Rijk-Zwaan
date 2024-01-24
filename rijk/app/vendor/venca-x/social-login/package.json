@@ -1,0 +1,31 @@
+{
+  "name": "social-login",
+  "description": "Nette addon. Login with social networks ( Faceboook, Google, Twitter )",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/venca-x/social-login.git"
+  },
+  "keywords": [
+    "Nette",
+    "Facebook login",
+    "Google login",
+    "Twitter login"
+  ],
+  "author": "vEnCa-X",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/venca-x/social-login/issues"
+  },
+  "homepage": "https://github.com/venca-x/social-login#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-shell": "^0.8.0"
+  }
+}
