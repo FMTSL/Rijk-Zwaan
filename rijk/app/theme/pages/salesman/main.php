@@ -32,7 +32,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                         <div class="card-content">
                             <div class="card-body">
                                 <button class="btn btn-success float-right mb-3" data-bs-toggle="modal" data-bs-target="#newSalesman"><i class="fa fa-plus"></i> <?= $title; ?></button>
-                                <div class="page-container">
+                                <div class="container">
                                     <div class="col-md-4">
                                     </div>
                                     <div class="row mt-5 mb-3 col-md-8">

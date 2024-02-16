@@ -35,28 +35,97 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                                     <a class="btn btn-success float-right mb-3" href="<?= url("order-to-order"); ?>"><i class="fa fa-plus"></i> <?= $title; ?></a>
                                 <?php endif; ?>
                                 <div class="page-container">
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                     </div>
-                                    <div class="row mt-5 mb-3 col-md-8">
+                                    <div class="row mt-5 mb-3 col-md-12 align-items-center g-3">
                                         <div class="col-md-3">
                                             <input type="text" class="form-control" placeholder="Search in table..." id="searchField">
                                         </div>
-                                        <div class="col-md-3 text-right">
-                                            <span class="pr-3">Rows Per Page:</span>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="d-flex justify-content-end">
-                                                <select class="custom-select" name="rowsPerPage" id="changeRows">
-                                                    <option value="1">1</option>
-                                                    <option value="5" selected>5</option>
-                                                    <option value="10">10</option>
-                                                    <option value="15">15</option>
-                                                </select>
+                                            <div class="col-md-2">
+                                                <div class="col-md-12 d-flex">
+                                                    <span class="pr-3">Rows Per Page:</span>
+                                                    <div class="d-flex justify-content-end">
+                                                        <select class="custom-select" name="rowsPerPage" id="changeRows">
+                                                            <option value="1">1</option>
+                                                            <option value="5" selected>5</option>
+                                                            <option value="10">10</option>
+                                                            <option value="15">15</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Filtro por Status -->
+                                            <div class="col-md-3">
+                                                <div class="col-md-12 d-flex align-items-center">
+                                                    <span class="pr-3">Assist Status:</span>
+                                                    <div class="d-flex justify-content-end">
+                                                        <select class="custom-select" name="assistStatus" id="statusFilter">
+                                                            <option value="" disabled selected>All</option>
+                                                            <option value="Pending Approval">Pending Approval</option>
+                                                            <option value="Order Approved">Order Approved</option>
+                                                            <option value="In Process">In Process</option>
+                                                            <option value="Sent">Sent</option>
+                                                            <option value="Cancelled">Cancelled</option>
+                                                            <option value="Quotation">Quotation</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                             <!-- Filtro por data -->
+                                            <div class="col-md-3">
+                                                <div class="col-md-12 d-flex align-items-center">
+                                                    <span class="pr-3">Date:</span>
+                                                    <div class="d-flex justify-content-end">
+                                                        <input type="date" class="form-control" id="dateFilter">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Filtro por Sales Representative -->
+                                            <!-- <div class="col-md-3">
+                                                <div class="col-md-12 d-flex">
+                                                    <span class="pr-3 d-none">Sales Representative:</span>
+                                                    <div class="d-flex justify-content-end">
+                                                        <input type="text" class="form-control" placeholder="Enter Sales Representative" id="salesmanFilter">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-md-3">
+                                                <div class="col-md-12 d-flex align-items-center">
+                                                    <span class="pr-3">Sales Representative:</span>
+                                                    <div class="d-flex justify-content-end">
+                                                        <select class="custom-select" id="salesmanFilter">
+                                                            <option value="" disabled selected>---</option>
+                                                            <option value="ANDRESSA">Andressa</option>
+                                                            <option value="BAHIA">Bahia</option>
+                                                            <option value="ELAINE">Elaine</option>
+                                                            <option value="ERIC">Eric</option>
+                                                            <option value="GABRIEL">Gabriel</option>
+                                                            <option value="JOAO VITOR">João Vitor</option>
+                                                            <option value="JOSE FRANCISCO">José Francisco</option>
+                                                            <option value="LAFAYETE">Lafayete</option>
+                                                            <option value="LIONEL">Lionel</option>
+                                                            <option value="MARCELO">Marcelo</option>
+                                                            <option value="RAFAEL">Rafael</option>
+                                                            <option value="RAFAELA">Rafaela</option>
+                                                            <option value="RENAN">Renan</option>
+                                                            <option value="RENATO">Renato</option>
+                                                            <option value="RICARDO">Ricardo</option>
+                                                            <option value="RUY">Ruy</option>
+                                                            <option value="TIAGO">Tiago</option>
+                                                            <option value="VINICIUS T">Vinicius T</option>
+                                                            <option value="WEBER">Weber</option>
+                                                            <!-- Adicione mais opções de vendedores aqui, se necessário -->
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="root"></div>
 
+                                    <div id="root"></div>
 
                                 </div>
                             </div>
@@ -76,6 +145,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
         </div>
     </div>
 </div>
+
 <?php $v->start("style"); ?>
 <link href="<?= url("theme/assets/css/table-sortable.css"); ?>" rel="stylesheet" media="screen">
 <?php $v->end(); ?>

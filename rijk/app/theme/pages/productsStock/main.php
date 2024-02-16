@@ -39,7 +39,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                     class="fa fa-download"></i> Generate Stock</a>
                 <?php endif; ?>
 
-                <div class="page-container">
+                <div class="container">
                   <div class="col-md-4">
                   </div>
                   <div class="row mt-5 mb-3 col-md-8">

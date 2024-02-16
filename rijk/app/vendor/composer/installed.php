@@ -3,7 +3,7 @@
         'name' => 'alexjmarques/rijk',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ea17947a2e0a4cd14d15c3d23fa9a3b9f005218a',
+        'reference' => '62bfd22ddb70881cf1cdbab664f0509e1dce1885',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'alexjmarques/rijk' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ea17947a2e0a4cd14d15c3d23fa9a3b9f005218a',
+            'reference' => '62bfd22ddb70881cf1cdbab664f0509e1dce1885',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

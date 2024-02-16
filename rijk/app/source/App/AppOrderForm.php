@@ -55,7 +55,7 @@ class AppOrderForm
                         'bonus_order' => $item->bonus_order,
                         'order_date' => date('d/m/Y', strtotime($item->order_date)),
                         'created_at' => date('d/m/Y', strtotime($item->created_at)),
-                        'hora' => date('H:m', strtotime($item->created_at)),
+                        'hora' => date('H:i', strtotime($item->created_at)),
                         'id_customer' => $this->acoes->getData('customers', $item->id_customer, 'full_name'),
                         'category' => $this->acoes->getData('customerCategory', $this->acoes->getData('customers', $item->id_customer, 'id_category_customer'), 'name'),
                         'id_bonus_order' => $item->bonus_order == 1 ? $this->acoes->getData('bonusOrder', $item->id_bonus_order, 'discount') . '%' : ((floatval($item->discount) + floatval($item->additional_discount)) + floatval($item->cash_payment)) . '%',
@@ -124,7 +124,7 @@ class AppOrderForm
                         'bonus_order' => $item->bonus_order,
                         'order_date' => date('d/m/Y', strtotime($item->order_date)),
                         'created_at' => date('d/m/Y', strtotime($item->created_at)),
-                        'hora' => date('H:m', strtotime($item->created_at)),
+                        'hora' => date('H:i', strtotime($item->created_at)),
                         'id_customer' => $this->acoes->getData('customers', $item->id_customer, 'full_name'),
                         'category' => $this->acoes->getData('customerCategory', $this->acoes->getData('customers', $item->id_customer, 'id_category_customer'), 'name'),
                         'id_bonus_order' => $item->bonus_order == 1 ? $this->acoes->getData('bonusOrder', $item->id_bonus_order, 'discount') . '%' : ((floatval($item->discount) + floatval($item->additional_discount)) + floatval($item->cash_payment)) . '%',
@@ -142,7 +142,7 @@ class AppOrderForm
                     'bonus_order' => $item->bonus_order,
                     'order_date' => date('d/m/Y', strtotime($item->order_date)),
                     'created_at' => date('d/m/Y', strtotime($item->created_at)),
-                    'hora' => date('H:m', strtotime($item->created_at)),
+                    'hora' => date('H:i', strtotime($item->created_at)),
                     'id_customer' => $this->acoes->getData('customers', $item->id_customer, 'full_name'),
                     'category' => $this->acoes->getData('customerCategory', $this->acoes->getData('customers', $item->id_customer, 'id_category_customer'), 'name'),
                     'id_bonus_order' => $item->bonus_order == 1 ? $this->acoes->getData('bonusOrder', $item->id_bonus_order, 'discount') . '%' : ((floatval($item->discount) + floatval($item->additional_discount)) + floatval($item->cash_payment)) . '%',
@@ -1743,4 +1743,30 @@ class AppOrderForm
         header('Content-Type: application/json');
         exit($json);
     }
+
+    //Lida com a lógica de retorno de produtos para o estoque
+    public function returnProducts()
+    {
+        //Trás todos os pedidos não finalizados e não cancelados com mais de 24 horas
+        $unfinishedOrders = (new Orders())->find("status != 'finalized' AND status != 'canceled' AND TIMESTAMPDIFF(HOUR, created_at, NOW()) > 24")->fetch(true);
+        console.log($unfinishedOrders);
+        foreach ($unfinishedOrders as $order) {
+            $relationshipStockCartOrder = (new RelationshipStockCartOrder())->find("id_cart_order = :id_cart_order", "id_cart_order={$order->id}")->fetch(true);
+
+            foreach ($relationshipStockCartOrder as $relationship) {
+                $productStock = (new ProductsStock())->findById($relationship->id_stock);
+                $productStock->quantity += $relationship->old_quantity;
+                $productStock->save();
+            }
+            
+            // Atualiza o status do pedido para 'returned_to_stock'
+            $order->status = 'returned_to_stock';
+            $order->save();
+        }
+
+        // Retorna uma resposta indicando que a operação foi concluída
+        echo json_encode(['message' => 'Products returned to stock successfully']);
+    }
+
+
 }

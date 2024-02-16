@@ -36,7 +36,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                                     <a class="btn btn-danger float-right mb-3 mr-4" href="<?= url("export/products"); ?>" target="_blank"><i class="fa fa-download"></i> Generate Stock</a>
                                 <?php endif; ?>
 
-                                <div class="page-container">
+                                <div class="container">
                                     <div class="col-md-4">
                                     </div>
                                     <div class="row mt-5 mb-3 col-md-8">

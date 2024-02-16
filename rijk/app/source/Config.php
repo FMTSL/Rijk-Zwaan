@@ -2,7 +2,7 @@
 //error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 define("SITE", "RIJK");
 
-$live = true;
+$live = false;
 if ($live) {
     define("ROOT", "https://homolog.rijkzwaanbrasil.com.br");
 } else {
@@ -14,11 +14,10 @@ define("DATA_LAYER_CONFIG", [
     "driver" => "pgsql",
     "host" => "rijk.postgres",
     "port" => "5432",
-    "dbname" => "aut_rijk",
+    "dbname" => "postgres",
     "username" => "postgres",
     "passwd" => "02W@9889forev",
     "options" => [
-        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
         PDO::ATTR_CASE => PDO::CASE_NATURAL
@@ -37,3 +36,4 @@ function url(string $uri = null): string
 
     return ROOT;
 }
+

@@ -33,7 +33,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                             <div class="card-body">
 
 
-                                <div class="page-container">
+                                <div class="container">
                                     <div class="col-md-4">
                                     </div>
                                     <div class="row mt-5 mb-3 col-md-8">
