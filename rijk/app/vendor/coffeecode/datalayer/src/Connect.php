@@ -24,14 +24,22 @@ class Connect
     {
         if (empty(self::$instance)) {
             try {
+                $dsn = DATA_LAYER_CONFIG["driver"] . ":host=" . DATA_LAYER_CONFIG["host"] . ";dbname=" . DATA_LAYER_CONFIG["dbname"] . ";port=" . DATA_LAYER_CONFIG["port"];
+    
+                // Debugging
+                // var_dump($dsn, DATA_LAYER_CONFIG["username"], DATA_LAYER_CONFIG["passwd"], DATA_LAYER_CONFIG["options"]);
+    
                 self::$instance = new PDO(
-                    DATA_LAYER_CONFIG["driver"] . ":host=" . DATA_LAYER_CONFIG["host"] . ";dbname=" . DATA_LAYER_CONFIG["dbname"] . ";port=" . DATA_LAYER_CONFIG["port"],
+                    $dsn,
                     DATA_LAYER_CONFIG["username"],
                     DATA_LAYER_CONFIG["passwd"],
                     DATA_LAYER_CONFIG["options"]
                 );
             } catch (PDOException $exception) {
                 self::$error = $exception;
+    
+                // Debugging
+                var_dump($exception->getMessage());
             }
         }
         return self::$instance;

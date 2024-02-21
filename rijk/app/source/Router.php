@@ -32,6 +32,9 @@ $route->get("/orders/lists/all", "AppOrderForm:listViewAll");
 $route->get("/unfinished-orders", "AppOrderForm:listViewUnfinished");
 $route->get("/unfinished-orders/lists/all", "AppOrderForm:listViewAllUnfinished");
 $route->delete("/unfinished-orders/delete", "AppOrderForm:deleteUnfinishedAction");
+//Retorna os produtos para o estoque
+$route->get("/return-products", "AppOrderForm:returnProducts");
+
 
 $route->get("/client-service", "AppOrderClientServiceForm:listView");
 $route->get("/client-service/lists/all", "AppOrderClientServiceForm:listViewAll");

@@ -34,7 +34,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                                 <?php if ($userRoles == 0 || $userRoles == 1 || $userRoles == 4) : ?>
                                     <a class="btn btn-success float-right mb-3" href="<?= url("files/new"); ?>"><i class="fa fa-plus"></i> <?= $title; ?></a>
                                 <?php endif; ?>
-                                <div class="page-container">
+                                <div class="container">
                                     <div class="col-md-4">
                                     </div>
                                     <div class="row mt-5 mb-3 col-md-8">
