@@ -56,6 +56,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                         </select>
                       </div>
                     </div>
+                    
                   </div>
                   <div id="root"></div>
 
@@ -100,6 +101,12 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
 
             </div>
 
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="euro" name="euro">
+              <label class="form-check-label" for="euro">
+                Trabalha em EURO
+              </label>
+            </div>  
 
           </div>
 

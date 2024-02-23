@@ -87,6 +87,10 @@
             </li>
 
             <li class="submenu-item">
+              <a href="<?= url("discount/euro"); ?>">Discount Euro</a>
+            </li>
+
+            <li class="submenu-item">
               <a href="<?= url("sales-unit"); ?>">Sales Unit</a>
             </li>
 

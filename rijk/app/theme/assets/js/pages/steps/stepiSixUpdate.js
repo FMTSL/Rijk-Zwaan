@@ -142,6 +142,9 @@ $("#stepSixUpdate #quantity_aditional_discount").on("focusout", function () {
             `#stepSixUpdate #aditional_discount_aditional_discount, #stepSixUpdate #volume_condition_aditional_discount, #stepSixUpdate #sala_nova_aditional_discount`
           ).prop("disabled", false);
           //$("#variety_aditional_discount button.btn").show();
+          $(
+            `#stepSixUpdate #aditional_discount_euro, #stepSixUpdate #volume_condition_aditional_discount, #stepSixUpdate #sala_nova_aditional_discount`
+          ).prop("disabled", false);
         });
       }
     },
@@ -156,6 +159,7 @@ $("#stepSixUpdate #aditional_discount_aditional_discount").on(
     }
   }
 );
+
 
 //Novo item no carrinho
 $("#aditionalDiscount").submit(function (e) {

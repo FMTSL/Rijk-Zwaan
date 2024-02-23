@@ -112,6 +112,7 @@ $.get(`/orders/lists/all`, function (dd) {
 
     $("#root table tbody").html(tableHtml);
   });
+  
 
   $("#changeRows").on("change", function () {
     table.updateRowsPerPage(parseInt($(this).val(), 10));

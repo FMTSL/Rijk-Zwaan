@@ -65,13 +65,15 @@ class AppBonusOrder
 
         $item->name = $data['input_name'];
         $item->discount = $data['discount'];
+        $item->status = 'Pending Approval'; // Marcar como "Pending Approval"
         $item->save();
-        //dd($item);
-        $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/bonus-order", 'mensagem' => "Item <strong>{$date['input_name']}</strong> successfully registered"]) : json_encode(['resp' => 0, 'mensagem' => "It was not possible to register the item: {$data['input_name']}"]);
+
+        $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/bonus-order", 'mensagem' => "Item <strong>{$data['input_name']}</strong> successfully registered"]) : json_encode(['resp' => 0, 'mensagem' => "It was not possible to register the item: {$data['input_name']}"]);
 
         header('Content-Type: application/json');
         exit($json);
     }
+
 
     public function updateView($data): void
     {
@@ -101,4 +103,5 @@ class AppBonusOrder
         header('Content-Type: application/json');
         exit($json);
     }
+
 }

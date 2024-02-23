@@ -1,3 +1,7 @@
+<?php
+  $euro = $customer->euro ? 'true' : 'false';
+?>
+
 <div class="" id="table-striped">
   <div class="card-content">
     <div class="card-body">
@@ -48,23 +52,40 @@
               </div>
             </div>
 
-            <div class="col-md-2">
+            <?php if ($euro === 'false') : ?>
+              <div class="col-md-2" id="div_aditional_discount">
+                <div class="form-group position-relative">
+                  <label for="aditional_discount_aditional_discount">Aditional discount</label>
+                  <select class="form-select" id="aditional_discount_aditional_discount" name="aditional_discount_aditional_discount" disabled>
+                    <option value="">Select</option>
+                    <option value="1">-15%</option>
+                    <option value="2">-10%</option>
+                    <option value="3">-5%</option>
+                    <option value="4">1%</option>
+                    <option value="5">2%</option>
+                    <option value="6">3%</option>
+                    <option value="7">4%</option>
+                    <option value="8">5%</option>
+                  </select>
+                </div>
+              </div>
+            <?php endif; ?>
+
+            <div class="col-md-2" id="div_aditional_discount_euro">
               <div class="form-group position-relative">
-                <label for="aditional_discount_aditional_discount">Aditional discount</label>
-                <select class="form-select" id="aditional_discount_aditional_discount"
-                  name="aditional_discount_aditional_discount" disabled required>
+                <label for="aditional_discount_aditional_discount">Aditional discount Euro</label>
+                <select class="form-select" id="aditional_discount_aditional_discount" name="aditional_discount_aditional_discount" disabled>
                   <option value="">Select</option>
-                  <option value="1">-15%</option>
-                  <option value="2">-10%</option>
-                  <option value="3">-5%</option>
-                  <option value="4">1%</option>
-                  <option value="5">2%</option>
-                  <option value="6">3%</option>
-                  <option value="7">4%</option>
-                  <option value="8">5%</option>
+                  <option value="9">-1%</option>
+                  <option value="10">-2%</option>
+                  <option value="11">-3%</option>
+                  <option value="12">-4%</option>
                 </select>
               </div>
             </div>
+
+            
+
             <div class="col-md-1">
               <button class="btn btn-success float-left mt-4" id="btn_prod"><i class="fa fa-plus"></i></button>
             </div>
@@ -146,6 +167,18 @@
                             case 8:
                               $new_category_discount = ($item->category_discount + 5);
                               break;
+                              case 9:
+                              $new_category_discount = ($item->category_discount - 1);
+                              break;
+                              case 10:
+                              $new_category_discount = ($item->category_discount - 2);
+                              break;
+                              case 11:
+                              $new_category_discount = ($item->category_discount - 3);
+                              break;
+                              case 12:
+                              $new_category_discount = ($item->category_discount - 4);
+                              break;
                             default:
                               $new_category_discount = ($item->category_discount + 0);
                               break;
@@ -160,9 +193,14 @@
                   <?= $order->cash_payment; ?>%
                   <?php else : ?>0%<?php endif; ?>
                 </td>
-                <td class="text-bold-500">R$ <?= $item->price; ?></td>
-                <td class="text-bold-500">R$ <?= number_format($item->value_icms, 2, ',', '.'); ?></td>
-                <td class="text-bold-500">R$ <?= number_format($item->quantity * $item->value_icms, 2, ',', '.'); ?>
+                <!-- <td class="text-bold-500">R$ < ?= $item->price; ?></td> -->
+                <td class="text-bold-500">€ <?= number_format($item->price / 5.38, 2, ',', '.'); ?></td>
+
+                <!-- <td class="text-bold-500">R$ < ?= number_format($item->value_icms, 2, ',', '.'); ?></td> -->
+                <td class="text-bold-500">€ <?= number_format($item->value_icms / 5.38, 2, ',', '.'); ?></td>
+                <!-- <td class="text-bold-500">R$ < ?= number_format($item->quantity * $item->value_icms, 2, ',', '.'); ?> -->
+                <td class="text-bold-500">€ <?= number_format(($item->quantity * $item->value_icms) / 5.38, 2, ',', '.'); ?></td>
+
                 </td>
                 <td class="text-bold-500"><button onclick="deletar(<?= $item->id; ?>)" class="delet btn btn-danger"><i
                       class="fa fa-times"></i></button></td>
@@ -180,12 +218,17 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><strong>Gross value: R$
-                    <?= number_format($aditionalDiscountOrderAllValueNotDiscount->value_not_discount, 2, ',', '.'); ?></strong>
-                </td>
-                <td><strong>Net value: R$
-                    <?= number_format($aditionalDiscountOrderAllValue->value_icms, 2, ',', '.'); ?></strong></td>
-                <td></td>
+                <!-- <td><strong>Gross value: R$
+                    < ?= number_format($aditionalDiscountOrderAllValueNotDiscount->value_not_discount, 2, ',', '.'); ?></strong>
+                </td> -->
+                <td><strong>Gross value: € <?= number_format($aditionalDiscountOrderAllValueNotDiscount->value_not_discount / 5.38, 2, ',', '.'); ?></strong></td>
+
+                <!-- <td><strong>Net value: R$
+                    < ?= number_format($aditionalDiscountOrderAllValue->value_icms, 2, ',', '.'); ?></strong></td>
+                <td></td> -->
+                <td><strong>Net value: € <?= number_format($aditionalDiscountOrderAllValue->value_icms / 5.38, 2, ',', '.'); ?></strong></td>
+<td></td>
+
               </tr>
             </tfoot>
           </table>
@@ -200,3 +243,26 @@
 </div>
 </div>
 <script type="text/javascript" src="<?= url("theme/assets/js/pages/steps/stepiSixUpdate.js"); ?>"></script>
+<script>
+    // Use o valor diretamente aqui, considerando que a variável $client contém o objeto do cliente com a coluna 'euro'
+  const euro = <?= $client->euro ? 'true' : 'false' ?>;
+
+  // Exiba ou oculte os elementos com base no valor de 'euro'
+  if (euro) {
+    $('#aditional_discount_euro').closest('.form-group').show();
+    $('#aditional_discount_aditional_discount').closest('.form-group').hide();
+  } else {
+    $('#aditional_discount_euro').closest('.form-group').hide();
+    $('#aditional_discount_aditional_discount').closest('.form-group').show();
+  }
+
+  // Exiba ou oculte o botão com base na seleção dos selects
+$('#aditional_discount_aditional_discount, #aditional_discount_euro').change(function() {
+  if ($('#aditional_discount_aditional_discount').val() !== '' || $('#aditional_discount_euro').val() !== '') {
+    $('#btn_prod').show();
+  } else {
+    $('#btn_prod').hide();
+  }
+});
+
+</script>

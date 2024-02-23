@@ -20,8 +20,60 @@ function gerarPDF(id, id_customer, order_number) {
   return false;
 }
 
+function deletar(id) {
+  $.ajax({
+    url: `/unfinished-orders/delete`,
+    type: "delete",
+    data: { id },
+    success: function (dd) {
+      console.log(dd);
+      if (dd.resp > 0) {
+        $.toast({
+          text: dd.mensagem,
+          showHideTransition: "fade",
+          position: "top-right",
+          loader: false,
+          icon: "success",
+        });
+        if (dd.redirect) {
+          setTimeout(function () {
+            window.location.href = dd.redirect;
+          }, 500);
+        }
+      } else {
+        $.toast({
+          text: dd.mensagem,
+          showHideTransition: "fade",
+          position: "top-right",
+          loader: false,
+          icon: "error",
+        });
+        if (dd.redirect) {
+          setTimeout(function () {
+            window.location.href = dd.redirect;
+          }, 500);
+        }
+      }
+    },
+  });
+  return false;
+}
+
 $.get(`/unfinished-orders/lists/all`, function (dd) {
   console.log(dd);
+  var filteredData = dd.filter(function (item) {
+    var status = item.status.replace(/<\/?[^>]+(>|$)/g, "").toLowerCase();
+    var createdAt = new Date(item.created_at.replace(/<\/?[^>]+(>|$)/g, ""));
+    var currentTime = new Date();
+    var timeDiff = currentTime - createdAt;
+    var hoursDiff = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    return status === "não finalizado" && status !== "cancelado" && hoursDiff >= 24;
+  });
+
+  filteredData.forEach(function (item) {
+    deletar(item.id);
+  });
+
   var options = {
     data: dd,
     columns: {
@@ -83,42 +135,3 @@ $.get(`/unfinished-orders/lists/all`, function (dd) {
     table.setPage(1);
   });
 });
-
-function deletar(id) {
-  $.ajax({
-    url: `/unfinished-orders/delete`,
-    type: "delete",
-    data: { id },
-    success: function (dd) {
-      console.log(dd);
-      if (dd.resp > 0) {
-        $.toast({
-          text: dd.mensagem,
-          showHideTransition: "fade",
-          position: "top-right",
-          loader: false,
-          icon: "success",
-        });
-        if (dd.redirect) {
-          setTimeout(function () {
-            window.location.href = dd.redirect;
-          }, 500);
-        }
-      } else {
-        $.toast({
-          text: dd.mensagem,
-          showHideTransition: "fade",
-          position: "top-right",
-          loader: false,
-          icon: "error",
-        });
-        if (dd.redirect) {
-          setTimeout(function () {
-            window.location.href = dd.redirect;
-          }, 500);
-        }
-      }
-    },
-  });
-  return false;
-}

@@ -158,6 +158,9 @@ $route->get("/discount/{id}", "AppDiscount:updateView");
 $route->get("/discount/list/{id}/{idClient}", "AppDiscount:listViewId");
 $route->post("/discount/update", "AppDiscount:updateAction");
 $route->delete("/discount/delete", "AppDiscount:deleteAction");
+//Listagem em euros
+$route->get("/discount/euro", "AppDiscount:listViewEuro");
+
 
 $route->get("/product/stock", "AppProductsStock:listView");
 $route->get("/product/stock/lists/all", "AppProductsStock:listViewAll");
