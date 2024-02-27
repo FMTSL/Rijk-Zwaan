@@ -213,6 +213,7 @@ $.get(`/customers/lists/all`, function (dd) {
       mobile: "Phone",
       cnpj: "CNPJ",
       special_client: "Special Client",
+      euro: "Euro",
       actions: "",
     },
     searchField: "#searchField",
@@ -222,6 +223,7 @@ $.get(`/customers/lists/all`, function (dd) {
           full_name: "Name",
           mobile: "Phone",
           special_client: "Special Client",
+          euro: "Euro",
           actions: "",
         },
       },
@@ -232,6 +234,47 @@ $.get(`/customers/lists/all`, function (dd) {
       setPage(nextPage);
     },
   });
+
+  $(document).ready(function() {
+    // Faz uma requisição AJAX para obter os detalhes do cliente específico
+    $.get('/customers/lists/all', function(customers) {
+        // Adiciona um evento de mudança ao filtro de euro
+        $("#euroFilter").on("change", function() {
+            var euroFilter = $(this).val();
+            var filteredCustomers = customers;
+
+            // Filtra os clientes com base no valor selecionado no filtro de euro
+            if (euroFilter !== "") {
+                filteredCustomers = customers.filter(function(customer) {
+                    return customer.euro.toString() === euroFilter;
+                });
+            }
+
+            // Atualiza a tabela com os dados filtrados
+            updateTable(filteredCustomers);
+        });
+
+        // Função para atualizar a tabela com os dados filtrados
+        function updateTable(data) {
+          var tableHtml = "<tr>";
+          data.forEach(function(customer) {
+              tableHtml += "<tr>";
+              tableHtml += "<td>" + customer.full_name + "</td>";
+              tableHtml += "<td>" + customer.email + "</td>";
+              tableHtml += "<td>" + customer.mobile + "</td>";
+              tableHtml += "<td>" + (customer.cnpj !== null ? customer.cnpj : '') + "</td>";
+              tableHtml += "<td>" + customer.special_client + "</td>";
+              tableHtml += "<td>" + (customer.euro ? 'Yes' : 'No') + "</td>";
+              tableHtml += "<td>" + customer.actions + "</td>";
+              tableHtml += "</tr>";
+          });
+          $("#root table tbody").html(tableHtml);
+        }
+        // Atualiza a tabela com todos os clientes ao carregar a página
+        updateTable(customers);
+    });
+});
+
 
   $("#changeRows").on("change", function () {
     table.updateRowsPerPage(parseInt($(this).val(), 10));

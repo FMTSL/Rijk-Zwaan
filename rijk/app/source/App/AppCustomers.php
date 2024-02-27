@@ -46,7 +46,7 @@ class AppCustomers
                     'mobile' => $item->mobile,
                     'cnpj' => $item->cnpj,
                     'special_client' => $item->special_client == 1 ? 'Yes' : 'No',
-
+                    'euro' => $item->euro,
                     'actions' => $this->sessao->getRoles() != 2 ? '<a class="btn btn-success" href="' . ROOT . '/customer/' . $item->id . '"><i class="fa fa-edit"></i></a> <button onclick="deletar(' . $item->id . ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' : '',
                 ];
             }
@@ -133,6 +133,7 @@ class AppCustomers
                     $cli->id_customer = $item->id;
                     $cli->cnpj = $data['cnpj'];
                     $cli->special_client = $data['special_client'];
+                    $cli->euro = $data['euro'];
                     $cli->save();
 
                     //dd($cli);
@@ -194,6 +195,8 @@ class AppCustomers
         $cli->bio = $data['bio'];
         $cli->cnpj = $data['cnpj'];
         $cli->special_client = $data['special_client'];
+        $cli->euro = $data['euro'];
+
         $cli->save();
 
         if ($cli->id > 0) {

@@ -12,39 +12,15 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                 <div class="col-12 col-md-3 order-md-1 order-last">
                     <h3 class="text-3xl"><?= $title; ?> #<?= $orderNumber; ?></h3>
                     <p class="text-subtitle text-muted"><?= $description; ?></p>
+                    <h3 >Customer Euro:</h2>
+                    <p id="euroStatus"></p>
                 </div>
-                <!-- <div class="col-12 col-md-4 order-md-2">
-                    <h3 >Preço do Euro:</h2>
-                    <h3 class="text-3xl">< ?php include 'getPriceEuro.php'; ?></p>
-                </div> -->
-                <!-- <div class="col-12 col-md-4 order-md-2">
+                <div class="col-12 col-md-4 order-md-2" id="euroPriceDiv" style="display: none;">
                     <h3>Preço do Euro:</h3>
-                    <h3 class="text-3xl" id="current-euro-price">
-                        <?php include 'getPriceEuro.php'; ?>
-                    </h3>
-                    <form action="getPriceEuro.php" method="post">
-                    <input type="text" name="new_value">
-                    <button type="submit">Atualizar</button>
-                </form>
-                </div> -->
-                <div class="col-12 col-md-4 order-md-2">
-                    <h3>Preço do Euro:</h3>
-                    <h3 class="text-3xl" id="current-euro-price">5.35</h3>
-                    <form>
-                        <input type="text" id="new-value" placeholder="Novo valor do Euro">
-                        <button type="button" onclick="atualizarPreco()">Atualizar</button>
-                    </form>
-                </div>
-
-                <script>
-                    function atualizarPreco() {
-                        var novoValor = document.getElementById('new-value').value;
-                        document.getElementById('current-euro-price').innerText = novoValor;
-                    }
-                </script>
-
-                
-
+                    <h3 class="text-3xl"><?php include 'getPriceEuro.php'; ?></p>
+                    <input type="text">
+                    <button class="btn btn-success" type="submit">Atualizar</button>
+                </div>     
                 <div class="col-12 col-md-5 order-md-3 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
@@ -204,29 +180,58 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
         });
     });
 
-    document.getElementById('update-euro-form').addEventListener('submit', function(event) {
-        event.preventDefault();
+    $(document).ready(function() {
+    // Extrai o ID do cliente da URL
+    var url = window.location.href;
+    var urlParts = url.split('/');
+    var customerId = urlParts[urlParts.length - 2]; // ID do cliente
 
-        var newValue = document.getElementById('new-euro-value').value;
+    // Faz uma requisição AJAX para obter os detalhes do cliente específico
+    $.get('/customers/lists/all', function(customers) {
+        // Encontra o cliente com o ID específico
+        var specificCustomer = customers.find(function(customer) {
+            return customer.id == customerId;
+        });
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'getPriceEuro.php', true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Atualiza o preço do Euro exibido na página
-                document.getElementById('current-euro-price').innerText = newValue;
-                alert('Valor do Euro atualizado com sucesso!');
+        // Exibe o status "euro" do cliente com o ID específico
+        if (specificCustomer) {
+            var euroStatus = specificCustomer.euro ? 'Yes' : 'No';
+            // Exibe o resultado no frontend
+            $('#euroStatus').text(euroStatus);
+        } else {
+            console.log('Cliente com ID ' + customerId + ' não encontrado.');
+        }
+    });
+});
+
+$(document).ready(function() {
+    // Extrai o ID do cliente da URL
+    var url = window.location.href;
+    var urlParts = url.split('/');
+    var customerId = urlParts[urlParts.length - 2]; // ID do cliente
+
+    // Faz uma requisição AJAX para obter os detalhes do cliente específico
+    $.get('/customers/lists/all', function(customers) {
+        // Encontra o cliente com o ID específico
+        var specificCustomer = customers.find(function(customer) {
+            return customer.id == customerId;
+        });
+
+        // Exibe o status "euro" do cliente com o ID específico
+        if (specificCustomer) {
+            var euroStatus = specificCustomer.euro ? 'Sim' : 'Não';
+            // Exibe o resultado no frontend
+            $('#euroPrice').text(euroStatus);
+            // Mostra a div apenas se o euro for true
+            if (specificCustomer.euro) {
+                $('#euroPriceDiv').show();
             }
-        };
-        xhr.send('new_value=' + newValue);
+        } else {
+            console.log('Cliente com ID ' + customerId + ' não encontrado.');
+        }
     });
-    
+});
 
-    // Atualiza a página após o envio do formulário
-    $('form').submit(function() {
-        location.reload();
-    });
 
 </script>
 <?php $v->end(); ?>

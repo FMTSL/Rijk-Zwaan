@@ -1834,5 +1834,23 @@ class AppOrderForm
         echo json_encode(['message' => 'Products returned to stock successfully']);
     }
 
+    public function getEuroValue(): void
+{
+    $pdo = new \PDO("pgsql:host=rijk.postgres;port=5432;dbname=postgres", "postgres", "02W@9889forev");
+    $stmt = $pdo->query("SELECT * FROM exchange");
+    $values = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    if ($values !== false) {
+        header('Content-Type: application/json');
+        echo json_encode(['values' => $values]);
+    } else {
+        http_response_code(404);
+        echo json_encode(['error' => 'Nenhum valor encontrado']);
+    }
+}
+
+
+
+
 
 }

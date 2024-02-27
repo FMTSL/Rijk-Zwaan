@@ -52,7 +52,7 @@
               </div>
             </div>
 
-            <?php if ($euro === 'false') : ?>
+          
               <div class="col-md-2" id="div_aditional_discount">
                 <div class="form-group position-relative">
                   <label for="aditional_discount_aditional_discount">Aditional discount</label>
@@ -69,7 +69,7 @@
                   </select>
                 </div>
               </div>
-            <?php endif; ?>
+           
 
             <div class="col-md-2" id="div_aditional_discount_euro">
               <div class="form-group position-relative">
@@ -245,24 +245,55 @@
 <script type="text/javascript" src="<?= url("theme/assets/js/pages/steps/stepiSixUpdate.js"); ?>"></script>
 <script>
     // Use o valor diretamente aqui, considerando que a variável $client contém o objeto do cliente com a coluna 'euro'
-  const euro = <?= $client->euro ? 'true' : 'false' ?>;
+//   const euro = < ?= $client->euro ? 'true' : 'false' ?>;
 
-  // Exiba ou oculte os elementos com base no valor de 'euro'
-  if (euro) {
-    $('#aditional_discount_euro').closest('.form-group').show();
-    $('#aditional_discount_aditional_discount').closest('.form-group').hide();
-  } else {
-    $('#aditional_discount_euro').closest('.form-group').hide();
-    $('#aditional_discount_aditional_discount').closest('.form-group').show();
-  }
+//   // Exiba ou oculte os elementos com base no valor de 'euro'
+//   if (euro) {
+//     $('#aditional_discount_euro').closest('.form-group').show();
+//     $('#aditional_discount_aditional_discount').closest('.form-group').hide();
+//   } else {
+//     $('#aditional_discount_euro').closest('.form-group').hide();
+//     $('#aditional_discount_aditional_discount').closest('.form-group').show();
+//   }
 
-  // Exiba ou oculte o botão com base na seleção dos selects
-$('#aditional_discount_aditional_discount, #aditional_discount_euro').change(function() {
-  if ($('#aditional_discount_aditional_discount').val() !== '' || $('#aditional_discount_euro').val() !== '') {
-    $('#btn_prod').show();
-  } else {
-    $('#btn_prod').hide();
-  }
+//   // Exiba ou oculte o botão com base na seleção dos selects
+// $('#aditional_discount_aditional_discount, #aditional_discount_euro').change(function() {
+//   if ($('#aditional_discount_aditional_discount').val() !== '' || $('#aditional_discount_euro').val() !== '') {
+//     $('#btn_prod').show();
+//   } else {
+//     $('#btn_prod').hide();
+//   }
+// });
+$(document).ready(function() {
+    // Obtém o ID do cliente da URL
+    var url = window.location.href;
+    var urlParts = url.split('/');
+    var customerId = urlParts[urlParts.length - 2]; // ID do cliente
+
+    // Faz uma requisição AJAX para obter os detalhes do cliente específico
+    $.get('/customers/lists/all', function(customers) {
+        // Encontra o cliente com o ID específico
+        var customer = customers.find(function(c) {
+            return c.id == customerId;
+        });
+
+        if (customer) {
+            // Exibe o status "euro" do cliente com o ID específico
+            var euroStatus = customer.euro ? 'Sim' : 'Não';
+            console.log('ID do cliente:', customer.id, ', Euro:', euroStatus);
+
+            // Exibir ou ocultar as divs com base no valor do euro
+            if (customer.euro) {
+                $('#div_aditional_discount_euro').show();
+                $('#div_aditional_discount').hide();
+            } else {
+                $('#div_aditional_discount_euro').hide();
+                $('#div_aditional_discount').show();
+            }
+        } else {
+            console.log('Cliente com ID ' + customerId + ' não encontrado.');
+        }
+    });
 });
 
 </script>
