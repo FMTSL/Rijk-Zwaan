@@ -158,6 +158,9 @@ $route->get("/discount/{id}", "AppDiscount:updateView");
 $route->get("/discount/list/{id}/{idClient}", "AppDiscount:listViewId");
 $route->post("/discount/update", "AppDiscount:updateAction");
 $route->delete("/discount/delete", "AppDiscount:deleteAction");
+//Listagem em euros
+$route->get("/discount/euro", "AppDiscount:listViewEuro");
+
 
 $route->get("/product/stock", "AppProductsStock:listView");
 $route->get("/product/stock/lists/all", "AppProductsStock:listViewAll");
@@ -336,7 +339,7 @@ $route->get("/files/new", "AppFiles:listViewNew");
 $route->post("/files/new-action", "AppFiles:newAction");
 $route->delete("/files/delete", "AppFiles:deleteAction");
 
-
+$route->get("/get-euro-value/{id}", "AppOrderForm:getEuroValue");
 
 /**
  * ERROR
@@ -352,3 +355,5 @@ $route->dispatch();
 if ($route->error()) {
     $route->redirect("/ops/{$route->error()}");
 }
+
+

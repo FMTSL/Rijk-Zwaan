@@ -3,6 +3,8 @@
  */
 $("#form").submit(function (e) {
   var formData = new FormData(this);
+  formData.append("status", "Pending Approval"); // Adicionar campo de status
+
   $.ajax({
     url: $("#form").attr("action"),
     type: "post",

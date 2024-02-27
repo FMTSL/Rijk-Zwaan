@@ -341,6 +341,18 @@
                                                                                   case 8:
                                                                                     $new_category_discount = ($item->category_discount + 5);
                                                                                     break;
+                                                                                    case 9:
+                                                                                      $new_category_discount = ($item->category_discount - 1);
+                                                                                      break;
+                                                                                      case 10:
+                                                                                      $new_category_discount = ($item->category_discount - 2);
+                                                                                      break;
+                                                                                      case 11:
+                                                                                      $new_category_discount = ($item->category_discount - 3);
+                                                                                      break;
+                                                                                      case 12:
+                                                                                      $new_category_discount = ($item->category_discount - 4);
+                                                                                      break;
                                                                                   default:
                                                                                     $new_category_discount = ($item->category_discount + 0);
                                                                                     break;

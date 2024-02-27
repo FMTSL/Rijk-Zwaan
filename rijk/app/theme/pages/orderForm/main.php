@@ -13,6 +13,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                     <h3 class="text-3xl"><?= $title; ?></h3>
                     <p class="text-subtitle text-muted"><?= $description; ?></p>
                 </div>
+                
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">

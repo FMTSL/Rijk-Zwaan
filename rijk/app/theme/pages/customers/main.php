@@ -56,6 +56,20 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                         </select>
                       </div>
                     </div>
+                    <div class="col-md-3">
+                      <div class="col-md-12 d-flex align-items-center">
+                          <span class="pr-3">Euro Status:</span>
+                          <div class="d-flex justify-content-end">
+                              <select class="custom-select" name="euroStatus" id="euroFilter">
+                                  <option value="" disabled selected>All</option>
+                                  <option value="true">Yes</option>
+                                  <option value="false">No</option>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+
+                    
                   </div>
                   <div id="root"></div>
 
@@ -100,6 +114,12 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
 
             </div>
 
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="euro" name="euro">
+              <label class="form-check-label" for="euro">
+                Trabalha em EURO
+              </label>
+            </div>  
 
           </div>
 

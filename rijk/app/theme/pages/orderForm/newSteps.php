@@ -9,11 +9,19 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
-                <div class="col-12 col-md-6 order-md-1 order-last">
+                <div class="col-12 col-md-3 order-md-1 order-last">
                     <h3 class="text-3xl"><?= $title; ?> #<?= $orderNumber; ?></h3>
                     <p class="text-subtitle text-muted"><?= $description; ?></p>
+                    <h3 >Customer Euro:</h2>
+                    <p id="euroStatus"></p>
                 </div>
-                <div class="col-12 col-md-6 order-md-2 order-first">
+                <div class="col-12 col-md-4 order-md-2" id="euroPriceDiv" style="display: none;">
+                    <h3>Preço do Euro:</h3>
+                    <h3 class="text-3xl"><?php include 'getPriceEuro.php'; ?></p>
+                    <input type="text">
+                    <button class="btn btn-success" type="submit">Atualizar</button>
+                </div>     
+                <div class="col-12 col-md-5 order-md-3 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= url(); ?>">Dashboard</a></li>
@@ -77,6 +85,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
         </section>
     </div>
 </div>
+
 <?php $v->start("style"); ?>
 <link href="<?= url("theme/assets/css/bootstrap-datetimepicker.min.css"); ?>" rel="stylesheet" media="screen">
 <link href="<?= url("theme/assets/css/select2.min.css"); ?>" rel="stylesheet" media="screen" />
@@ -164,5 +173,65 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
 
     }
     $("select").select2();
+
+    $(document).ready(function() {
+        $.get('/get-euro-price.php', function(data) {
+            $('#euro-price').html('Preço do Euro: ' + data);
+        });
+    });
+
+    $(document).ready(function() {
+    // Extrai o ID do cliente da URL
+    var url = window.location.href;
+    var urlParts = url.split('/');
+    var customerId = urlParts[urlParts.length - 2]; // ID do cliente
+
+    // Faz uma requisição AJAX para obter os detalhes do cliente específico
+    $.get('/customers/lists/all', function(customers) {
+        // Encontra o cliente com o ID específico
+        var specificCustomer = customers.find(function(customer) {
+            return customer.id == customerId;
+        });
+
+        // Exibe o status "euro" do cliente com o ID específico
+        if (specificCustomer) {
+            var euroStatus = specificCustomer.euro ? 'Yes' : 'No';
+            // Exibe o resultado no frontend
+            $('#euroStatus').text(euroStatus);
+        } else {
+            console.log('Cliente com ID ' + customerId + ' não encontrado.');
+        }
+    });
+});
+
+$(document).ready(function() {
+    // Extrai o ID do cliente da URL
+    var url = window.location.href;
+    var urlParts = url.split('/');
+    var customerId = urlParts[urlParts.length - 2]; // ID do cliente
+
+    // Faz uma requisição AJAX para obter os detalhes do cliente específico
+    $.get('/customers/lists/all', function(customers) {
+        // Encontra o cliente com o ID específico
+        var specificCustomer = customers.find(function(customer) {
+            return customer.id == customerId;
+        });
+
+        // Exibe o status "euro" do cliente com o ID específico
+        if (specificCustomer) {
+            var euroStatus = specificCustomer.euro ? 'Sim' : 'Não';
+            // Exibe o resultado no frontend
+            $('#euroPrice').text(euroStatus);
+            // Mostra a div apenas se o euro for true
+            if (specificCustomer.euro) {
+                $('#euroPriceDiv').show();
+            }
+        } else {
+            console.log('Cliente com ID ' + customerId + ' não encontrado.');
+        }
+    });
+});
+
+
 </script>
 <?php $v->end(); ?>

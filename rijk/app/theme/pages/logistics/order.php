@@ -186,46 +186,69 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
       </div>
     </section>
 
+    <?php if ($userRoles == 0) : ?>
     <section class="section">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <?php if ($order->status == 11) : ?>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="id_customer">Status</label>
+                                <strong style="color: red; padding-top: 5px;">Order canceled</strong>
+                            </div>
+                        </div>
+                    </div>
+                <?php elseif ($order->status == 12) : ?>
+                    <form method="post" id="form" action="<?= url("order-to-order/logistic-quotation/{$order->id}"); ?>">
+                        <input type="hidden" id="status" name="status" value="<?php if ($client->special_client == 1 || $quotation > 0) {
+                                                                                        echo 1;
+                                                                                    } else {
+                                                                                        echo 2;
+                                                                                    } ?>">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group position-relative pt-1">
+                                            <button class="btn btn-info btn-block btn-lg float-right"></i> Generate New Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                <?php else : ?>
+                    <form method="post" id="form" action="<?= url("order-to-order/logistic/{$order->id}"); ?>">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="id_customer">Status</label>
+                                    <select class="form-select" id="status" name="status">
+                                        <?php foreach ($status as $stat) : ?>
+                                            <option value="<?= $stat->id; ?>" <?php if ($order->status == $stat->id) : ?> selected <?php endif; ?>><?= $stat->name; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
 
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="delivery">Sales Representatives</label>
-                    <p><?= $salesman->name; ?></p>
-                  </div>
-
-                </div>
-
-                <div class="col-md-5">
-                  <div class="form-group">
-                    <label for="delivery_address">E-mail</label>
-                    <p><?= $salesmanUser->email; ?></p>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="disabledInput">Phone</label>
-                    <p><?= $salesmanUser->phone; ?></p>
-                  </div>
-                </div>
-
-              </div>
-
-
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group position-relative pt-1">
+                                            <button class="btn btn-success float-left mt-4"></i> Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                <?php endif; ?>
             </div>
-          </div>
-
-
-
         </div>
-      </div>
     </section>
+  <?php endif; ?>
+
 
 
     <?php if ($userRoles == 0 || $userRoles == 1 || $userRoles == 4) : ?>

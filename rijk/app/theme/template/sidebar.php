@@ -70,6 +70,11 @@
               <a href="<?= url("product/stock"); ?>">Products</a>
             </li>
             <?php endif; ?>
+            <?php if ($userRoles == 0 || $userRoles == 1 || $userRoles == 4) : ?>
+            <li class="submenu-item">
+              <a href="<?= url("product/stock"); ?>">Products Euro</a>
+            </li>
+            <?php endif; ?>
 
             <li class="submenu-item">
               <a href="<?= url("product/stock/clone"); ?>">Daily Stock</a>
@@ -84,6 +89,10 @@
 
             <li class="submenu-item">
               <a href="<?= url("discounts"); ?>">Discount</a>
+            </li>
+
+            <li class="submenu-item">
+              <a href="<?= url("discount/euro"); ?>">Discount Euro</a>
             </li>
 
             <li class="submenu-item">
@@ -146,6 +155,9 @@
             </li>
             <li class="submenu-item ">
               <a href="<?= url("import/products"); ?>">Products</a>
+            </li>
+            <li class="submenu-item ">
+              <a href="<?= url("import/products"); ?>">Products Euro</a>
             </li>
             <li class="submenu-item ">
               <a href="<?= url("import/products/clone"); ?>">Daily Stock</a>

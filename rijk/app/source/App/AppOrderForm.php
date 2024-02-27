@@ -38,6 +38,11 @@ class AppOrderForm
 
     public function listViewAll($data): void
     {
+        // Verifica se o usuário é Super Administrator
+        if ($this->userRoles != 0) {
+            return;
+        }
+
         $itens = $this->acoes->getFind('orders');
         if ($itens) {
             foreach ($itens as &$item) {
@@ -49,6 +54,22 @@ class AppOrderForm
                     } else {
                         $status = ' <a class="btn btn-slin btn-warning" onclick="gerarPDF(' . $item->id . ',' . $item->id_customer . ',' . $item->order_number . ')" href="#"><i class="fa fa-print"></i></a> <a class="btn btn-slin btn-info" href="' . ROOT . '/order-to-orders/logistics/' . $item->id . '/' . $item->id_customer . '/' . $item->order_number . '"><i class="fa fa-eye"></i></a>';
                     }
+                    // Botão para abrir o modal de status
+                    if ($this->userRoles == 0) { // Somente para Super Administrator
+                        $status .= '<button type="button" class="btn btn-slin btn-success" data-bs-toggle="modal" data-bs-target="#statusModal-' . $item->id . '"><i class="fas fa-sync-alt"></i></button>';
+                    }
+
+                    // Chama a função para obter o HTML do modal
+                    $status .= $this->getStatusModal($item->id, $item->id_customer, $item->order_number, [
+                        ['id' => 1, 'name' => 'Pending Approval'],
+                        ['id' => 2, 'name' => 'Order Approved'],
+                        ['id' => 5, 'name' => 'In Process'],
+                        ['id' => 7, 'name' => 'Sent'],
+                        ['id' => 11, 'name' => 'Cancelled'],
+                        ['id' => 12, 'name' => 'Quotation']
+                    ]);
+
+            
                     $its[] = [
                         'id' => $item->id,
                         'order_number' => $item->order_number,
@@ -67,6 +88,7 @@ class AppOrderForm
                     ];
                 }
             }
+            
         } else {
             $its = 0;
         }
@@ -162,6 +184,50 @@ class AppOrderForm
         header('Content-Type: application/json');
         exit($json);
     }
+
+   
+    public function getStatusModal($orderId, $customerId, $orderNumber, $status)
+    {
+        $statusOptions = '';
+        foreach ($status as $stat) {
+            $selected = ($order->status == $stat['id']) ? 'selected' : '';
+            $statusOptions .= '<option value="' . $stat['id'] . '" ' . $selected . '>' . $stat['name'] . '</option>';
+        }
+
+        return '
+        <div class="modal fade" id="statusModal-' . $orderId . '" tabindex="-1" aria-labelledby="statusModalLabel-' . $orderId . '" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statusModalLabel-' . $orderId . '">Update Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="form-' . $orderId . '" action="' . url("order-to-order/logistic/{$orderId}") . '">
+                <div class="row">
+                    <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="id_customer">Status</label>
+                        <select class="form-select" id="status" name="status">' . $statusOptions . '</select>
+                    </div>
+                    </div>
+                    <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                        <div class="form-group position-relative pt-1">
+                            <button type="submit" class="btn btn-success float-left mt-4">Update</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>';
+    }
+
     public function listViewUnfinished($data): void
     {
         //dd($this->acoes->getFind('salanova'));
@@ -1767,6 +1833,24 @@ class AppOrderForm
         // Retorna uma resposta indicando que a operação foi concluída
         echo json_encode(['message' => 'Products returned to stock successfully']);
     }
+
+    public function getEuroValue(): void
+{
+    $pdo = new \PDO("pgsql:host=rijk.postgres;port=5432;dbname=postgres", "postgres", "02W@9889forev");
+    $stmt = $pdo->query("SELECT * FROM exchange");
+    $values = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    if ($values !== false) {
+        header('Content-Type: application/json');
+        echo json_encode(['values' => $values]);
+    } else {
+        http_response_code(404);
+        echo json_encode(['error' => 'Nenhum valor encontrado']);
+    }
+}
+
+
+
 
 
 }
