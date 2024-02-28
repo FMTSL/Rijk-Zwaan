@@ -339,7 +339,7 @@ $route->get("/files/new", "AppFiles:listViewNew");
 $route->post("/files/new-action", "AppFiles:newAction");
 $route->delete("/files/delete", "AppFiles:deleteAction");
 
-$route->get("/get-euro-value/{id}", "AppOrderForm:getEuroValue");
+$route->get("/get-euro-value/all", "AppOrderForm:getEuroValue");
 
 /**
  * ERROR
@@ -355,5 +355,3 @@ $route->dispatch();
 if ($route->error()) {
     $route->redirect("/ops/{$route->error()}");
 }
-
-
