@@ -20,27 +20,223 @@ function gerarPDF(id, id_customer, order_number) {
   return false;
 }
 
+// $.get(`/orders/lists/all`, function (dd) {
+//   var options = {
+//     data: dd,
+//     columns: {
+//       order_number: "Order Number",
+//       created_at: "Date",
+//       hora: "Hour",
+//       id_customer: "Customer",
+//       category: "Category",
+//       value: "Gross value",
+//       value_total: "Net value",
+//       status: "Status",
+//       id_salesman: "Sales Representative",
+//       actions: "",
+//     },
+//     searchField: "#searchField",
+//     responsive: {
+//       1100: {
+//         columns: {
+//           order_number: "Order Number",
+//           order_date: "Date",
+//           id_customer: "Customer",
+//           category: "Category",
+//           value: "Gross value",
+//           value_total: "Net value",
+//           status: "Status",
+//           id_salesman: "Sales Representative",
+//           actions: "",
+//         },
+//       },
+//     },
+//     sorting: true,
+//     rowsPerPage: 20,
+//     pagination: true,
+//     onPaginationChange: function (nextPage, setPage) {
+//       setPage(nextPage);
+//     },
+//   };
+
+//   var table = $("#root").tableSortable(options);
+//   table.refresh(table._dataset.sort("id", table._dataset.sortDirection.DESC));
+
+//   var statusMapping = {
+//     "Pending Approval": "Aguardando Aprovação",
+//     "Order Approved": "Pedido Aprovado",
+//     "Received": "Recebido",
+//     "Sorting in stock": "Triagem em Estoque",
+//     "In Process": "Em Processamento",
+//     "Waiting for NF": "Aguardando NF",
+//     "Sent": "Enviado",
+//     "Out for delivery": "Em Entrega",
+//     "Delivered": "Entregue",
+//     "Cancelled": "Cancelado",
+//     "Quotation": "Cotação"
+//   };
+
+//   //filtro de status
+//   $("#statusFilter").on("change", function () {
+//     console.log("Status filter changed");
+//     var status = $(this).val();
+//     var filteredData = dd;
+//     if (status !== "All") {
+//       filteredData = dd.filter(function (item) {
+//         // Comparar o status sem tags HTML e em letras minúsculas
+//         return item.status.replace(/<\/?[^>]+(>|$)/g, "").toLowerCase() === status.toLowerCase();
+//       });
+//     }
+//     console.log("Status values in dd:", dd.map(item => item.status));
+//     console.log("Filtered data:", filteredData);
+
+//     // Atualiza a tabela com os dados filtrados
+//     table.refresh(filteredData);
+
+//     // Cria o HTML da tabela apenas com as colunas desejadas
+//     var tableHtml = "<tr>";
+
+//     filteredData.forEach(function (item) {
+//       tableHtml += "<tr>";
+//       tableHtml += "<td>" + item.order_number + "</td>";
+//       tableHtml += "<td>" + item.created_at + "</td>";
+//       tableHtml += "<td>" + item.hora + "</td>";
+//       tableHtml += "<td>" + item.id_customer + "</td>";
+//       tableHtml += "<td>" + item.category + "</td>";
+//       tableHtml += "<td>" + item.value + "</td>";
+//       tableHtml += "<td>" + item.value_total + "</td>";
+//       tableHtml += "<td>" + item.status + "</td>";
+//       tableHtml += "<td>" + item.id_salesman + "</td>";
+//       tableHtml += "<th>" + item.actions + "</th>";
+//     });
+
+//     $("#root table tbody").html(tableHtml);
+//   });
+  
+
+//   $("#changeRows").on("change", function () {
+//     table.updateRowsPerPage(parseInt($(this).val(), 10));
+//   });
+
+//   $("#rerender").click(function () {
+//     table.refresh(true);
+//   });
+
+//   $("#distory").click(function () {
+//     table.distroy();
+//   });
+
+//   $("#refresh").click(function () {
+//     table.refresh();
+//   });
+
+//   $("#setPage2").click(function () {
+//     table.setPage(1);
+//   });
+
+//   //filtro por data
+//   $("#dateFilter").on("change", function () {
+//     console.log("Date filter changed");
+//     var selectedDate = $(this).val();
+//     console.log("Selected date:", selectedDate);
+
+//     var filteredData = dd;
+//     if (selectedDate) {
+//       filteredData = dd.filter(function (item) {
+//         // Formatando a data do objeto retornado para o mesmo formato do selectedDate
+//         var orderDate = item.created_at.split("/").reverse().join("-");
+//         return orderDate === selectedDate;
+//       }).sort(function (a, b) {
+//         // Ordena os dados com base no created_at
+//         return new Date(a.created_at) - new Date(b.created_at);
+//       });
+//     }
+//     console.log("Filtered data:", filteredData);
+
+//     // Cria o HTML da tabela apenas com as colunas desejadas
+//     var tableHtml = "<tr>";
+
+//     filteredData.forEach(function (item) {
+//       tableHtml += "<tr>";
+//       tableHtml += "<td>" + item.order_number + "</td>";
+//       tableHtml += "<td>" + item.created_at + "</td>";
+//       tableHtml += "<td>" + item.hora + "</td>";
+//       tableHtml += "<td>" + item.id_customer + "</td>";
+//       tableHtml += "<td>" + item.category + "</td>";
+//       tableHtml += "<td>" + item.value + "</td>";
+//       tableHtml += "<td>" + item.value_total + "</td>";
+//       tableHtml += "<td>" + item.status + "</td>";
+//       tableHtml += "<td>" + item.id_salesman + "</td>";
+//       tableHtml += "<th>" + item.actions + "</th>";
+//     });
+
+//     $("#root table tbody").html(tableHtml);
+//   });
+
+//   //filtro por Sales Representative
+//   $("#salesmanFilter").on("input", function () {
+//     // console.log("Sales Representative filter changed");
+//     // var inputSalesman = $(this).val().trim().toLowerCase();
+//     // console.log("Input Sales Representative:", inputSalesman);
+
+//     // var filteredData = dd;
+//     // if (inputSalesman) {
+//     //   filteredData = dd.filter(function (item) {
+//     //     // Verifica se o nome do Sales Representative contém o texto digitado
+//     //     return item.id_salesman.toLowerCase().includes(inputSalesman);
+//     //   }).sort(function (a, b) {
+//     //     // Ordena os dados com base no created_at
+//     //     return new Date(a.created_at) - new Date(b.created_at);
+//     //   });
+//     // }
+//     // console.log("Filtered data:", filteredData);
+//     // table.refresh(filteredData);
+//     console.log("Salesman filter changed");
+//     var selectedSalesman = $(this).val();
+//     console.log("Selected salesman:", selectedSalesman);
+    
+//     var filteredData = dd;
+//     if (selectedSalesman) {
+//         filteredData = dd.filter(function (item) {
+//             // Verifica se o vendedor do pedido é igual ao vendedor selecionado
+//             return item.id_salesman === selectedSalesman;
+//         }).sort(function(a, b) {
+//             // Ordena os dados com base no created_at
+//             return new Date(a.created_at) - new Date(b.created_at);
+//         });
+//     }
+//     console.log("Filtered data:", filteredData);
+//     table.refresh(filteredData);
+
+//     var tableHtml = "<tr>";
+
+//     filteredData.forEach(function (item) {
+//       tableHtml += "<tr>";
+//       tableHtml += "<td>" + item.order_number + "</td>";
+//       tableHtml += "<td>" + item.created_at + "</td>";
+//       tableHtml += "<td>" + item.hora + "</td>";
+//       tableHtml += "<td>" + item.id_customer + "</td>";
+//       tableHtml += "<td>" + item.category + "</td>";
+//       tableHtml += "<td>" + item.value + "</td>";
+//       tableHtml += "<td>" + item.value_total + "</td>";
+//       tableHtml += "<td>" + item.status + "</td>";
+//       tableHtml += "<td>" + item.id_salesman + "</td>";
+//       tableHtml += "<th>" + item.actions + "</th>";
+//     });
+
+//     $("#root table tbody").html(tableHtml);
+//   });
+// });
+
+
+
 $.get(`/orders/lists/all`, function (dd) {
   var options = {
-    data: dd,
-    columns: {
-      order_number: "Order Number",
-      created_at: "Date",
-      hora: "Hour",
-      id_customer: "Customer",
-      category: "Category",
-      value: "Gross value",
-      value_total: "Net value",
-      status: "Status",
-      id_salesman: "Sales Representative",
-      actions: "",
-    },
-    searchField: "#searchField",
-    responsive: {
-      1100: {
-        columns: {
+      data: dd,
+      columns: {
           order_number: "Order Number",
-          order_date: "Date",
+          created_at: "Date",
+          hora: "Hour",
           id_customer: "Customer",
           category: "Category",
           value: "Gross value",
@@ -48,182 +244,124 @@ $.get(`/orders/lists/all`, function (dd) {
           status: "Status",
           id_salesman: "Sales Representative",
           actions: "",
-        },
       },
-    },
-    sorting: true,
-    rowsPerPage: 20,
-    pagination: true,
-    onPaginationChange: function (nextPage, setPage) {
-      setPage(nextPage);
-    },
+      searchField: "#searchField",
+      responsive: {
+          1100: {
+              columns: {
+                  order_number: "Order Number",
+                  order_date: "Date",
+                  id_customer: "Customer",
+                  category: "Category",
+                  value: "Gross value",
+                  value_total: "Net value",
+                  status: "Status",
+                  id_salesman: "Sales Representative",
+                  actions: "",
+              },
+          },
+      },
+      sorting: true,
+      rowsPerPage: 20,
+      pagination: true,
+      onPaginationChange: function (nextPage, setPage) {
+          setPage(nextPage);
+      },
   };
 
   var table = $("#root").tableSortable(options);
   table.refresh(table._dataset.sort("id", table._dataset.sortDirection.DESC));
 
   var statusMapping = {
-    "Pending Approval": "Aguardando Aprovação",
-    "Order Approved": "Pedido Aprovado",
-    "Received": "Recebido",
-    "Sorting in stock": "Triagem em Estoque",
-    "In Process": "Em Processamento",
-    "Waiting for NF": "Aguardando NF",
-    "Sent": "Enviado",
-    "Out for delivery": "Em Entrega",
-    "Delivered": "Entregue",
-    "Cancelled": "Cancelado",
-    "Quotation": "Cotação"
+      "Pending Approval": "Aguardando Aprovação",
+      "Order Approved": "Pedido Aprovado",
+      "Received": "Recebido",
+      "Sorting in stock": "Triagem em Estoque",
+      "In Process": "Em Processamento",
+      "Waiting for NF": "Aguardando NF",
+      "Sent": "Enviado",
+      "Out for delivery": "Em Entrega",
+      "Delivered": "Entregue",
+      "Cancelled": "Cancelado",
+      "Quotation": "Cotação"
   };
 
-  //filtro de status
-  $("#statusFilter").on("change", function () {
-    console.log("Status filter changed");
-    var status = $(this).val();
+  function filterData() {
+    var status = $("#statusFilter").val();
+    var selectedDate = $("#dateFilter").val();
+    var selectedSalesman = $("#salesmanFilter").val();
+
     var filteredData = dd;
-    if (status !== "All") {
-      filteredData = dd.filter(function (item) {
-        // Comparar o status sem tags HTML e em letras minúsculas
-        return item.status.replace(/<\/?[^>]+(>|$)/g, "").toLowerCase() === status.toLowerCase();
-      });
+
+    if (status && status !== "All") {
+        filteredData = filteredData.filter(function (item) {
+            return item.status.replace(/<\/?[^>]+(>|$)/g, "").toLowerCase() === status.toLowerCase();
+        });
     }
-    console.log("Status values in dd:", dd.map(item => item.status));
-    console.log("Filtered data:", filteredData);
 
-    // Atualiza a tabela com os dados filtrados
-    table.refresh(filteredData);
+    if (selectedDate) {
+        filteredData = filteredData.filter(function (item) {
+            var orderDate = item.created_at.split("/").reverse().join("-");
+            return orderDate === selectedDate;
+        });
+    }
 
-    // Cria o HTML da tabela apenas com as colunas desejadas
-    var tableHtml = "<tr>";
+    if (selectedSalesman) {
+        filteredData = filteredData.filter(function (item) {
+            return item.id_salesman === selectedSalesman;
+        });
+    }
 
-    filteredData.forEach(function (item) {
-      tableHtml += "<tr>";
-      tableHtml += "<td>" + item.order_number + "</td>";
-      tableHtml += "<td>" + item.created_at + "</td>";
-      tableHtml += "<td>" + item.hora + "</td>";
-      tableHtml += "<td>" + item.id_customer + "</td>";
-      tableHtml += "<td>" + item.category + "</td>";
-      tableHtml += "<td>" + item.value + "</td>";
-      tableHtml += "<td>" + item.value_total + "</td>";
-      tableHtml += "<td>" + item.status + "</td>";
-      tableHtml += "<td>" + item.id_salesman + "</td>";
-      tableHtml += "<th>" + item.actions + "</th>";
-    });
+    return filteredData;
+  }
 
-    $("#root table tbody").html(tableHtml);
+
+  function updateTable() {
+      var filteredData = filterData();
+
+      var tableHtml = "<tr>";
+
+      filteredData.forEach(function (item) {
+          tableHtml += "<tr>";
+          tableHtml += "<td>" + item.order_number + "</td>";
+          tableHtml += "<td>" + item.created_at + "</td>";
+          tableHtml += "<td>" + item.hora + "</td>";
+          tableHtml += "<td>" + item.id_customer + "</td>";
+          tableHtml += "<td>" + item.category + "</td>";
+          tableHtml += "<td>" + item.value + "</td>";
+          tableHtml += "<td>" + item.value_total + "</td>";
+          tableHtml += "<td>" + item.status + "</td>";
+          tableHtml += "<td>" + item.id_salesman + "</td>";
+          tableHtml += "<th>" + item.actions + "</th>";
+      });
+
+      $("#root table tbody").html(tableHtml);
+  }
+
+  $("#statusFilter, #dateFilter, #salesmanFilter").on("change", function () {
+      updateTable();
   });
-  
 
   $("#changeRows").on("change", function () {
-    table.updateRowsPerPage(parseInt($(this).val(), 10));
+      table.updateRowsPerPage(parseInt($(this).val(), 10));
   });
 
   $("#rerender").click(function () {
-    table.refresh(true);
+      table.refresh(true);
   });
 
   $("#distory").click(function () {
-    table.distroy();
+      table.distroy();
   });
 
   $("#refresh").click(function () {
-    table.refresh();
+      table.refresh();
   });
 
   $("#setPage2").click(function () {
-    table.setPage(1);
+      table.setPage(1);
   });
 
-  //filtro por data
-  $("#dateFilter").on("change", function () {
-    console.log("Date filter changed");
-    var selectedDate = $(this).val();
-    console.log("Selected date:", selectedDate);
-
-    var filteredData = dd;
-    if (selectedDate) {
-      filteredData = dd.filter(function (item) {
-        // Formatando a data do objeto retornado para o mesmo formato do selectedDate
-        var orderDate = item.created_at.split("/").reverse().join("-");
-        return orderDate === selectedDate;
-      }).sort(function (a, b) {
-        // Ordena os dados com base no created_at
-        return new Date(a.created_at) - new Date(b.created_at);
-      });
-    }
-    console.log("Filtered data:", filteredData);
-
-    // Cria o HTML da tabela apenas com as colunas desejadas
-    var tableHtml = "<tr>";
-
-    filteredData.forEach(function (item) {
-      tableHtml += "<tr>";
-      tableHtml += "<td>" + item.order_number + "</td>";
-      tableHtml += "<td>" + item.created_at + "</td>";
-      tableHtml += "<td>" + item.hora + "</td>";
-      tableHtml += "<td>" + item.id_customer + "</td>";
-      tableHtml += "<td>" + item.category + "</td>";
-      tableHtml += "<td>" + item.value + "</td>";
-      tableHtml += "<td>" + item.value_total + "</td>";
-      tableHtml += "<td>" + item.status + "</td>";
-      tableHtml += "<td>" + item.id_salesman + "</td>";
-      tableHtml += "<th>" + item.actions + "</th>";
-    });
-
-    $("#root table tbody").html(tableHtml);
-  });
-
-  //filtro por Sales Representative
-  $("#salesmanFilter").on("input", function () {
-    // console.log("Sales Representative filter changed");
-    // var inputSalesman = $(this).val().trim().toLowerCase();
-    // console.log("Input Sales Representative:", inputSalesman);
-
-    // var filteredData = dd;
-    // if (inputSalesman) {
-    //   filteredData = dd.filter(function (item) {
-    //     // Verifica se o nome do Sales Representative contém o texto digitado
-    //     return item.id_salesman.toLowerCase().includes(inputSalesman);
-    //   }).sort(function (a, b) {
-    //     // Ordena os dados com base no created_at
-    //     return new Date(a.created_at) - new Date(b.created_at);
-    //   });
-    // }
-    // console.log("Filtered data:", filteredData);
-    // table.refresh(filteredData);
-    console.log("Salesman filter changed");
-    var selectedSalesman = $(this).val();
-    console.log("Selected salesman:", selectedSalesman);
-    
-    var filteredData = dd;
-    if (selectedSalesman) {
-        filteredData = dd.filter(function (item) {
-            // Verifica se o vendedor do pedido é igual ao vendedor selecionado
-            return item.id_salesman === selectedSalesman;
-        }).sort(function(a, b) {
-            // Ordena os dados com base no created_at
-            return new Date(a.created_at) - new Date(b.created_at);
-        });
-    }
-    console.log("Filtered data:", filteredData);
-    table.refresh(filteredData);
-
-    var tableHtml = "<tr>";
-
-    filteredData.forEach(function (item) {
-      tableHtml += "<tr>";
-      tableHtml += "<td>" + item.order_number + "</td>";
-      tableHtml += "<td>" + item.created_at + "</td>";
-      tableHtml += "<td>" + item.hora + "</td>";
-      tableHtml += "<td>" + item.id_customer + "</td>";
-      tableHtml += "<td>" + item.category + "</td>";
-      tableHtml += "<td>" + item.value + "</td>";
-      tableHtml += "<td>" + item.value_total + "</td>";
-      tableHtml += "<td>" + item.status + "</td>";
-      tableHtml += "<td>" + item.id_salesman + "</td>";
-      tableHtml += "<th>" + item.actions + "</th>";
-    });
-
-    $("#root table tbody").html(tableHtml);
-  });
+  // Initial table render
+  updateTable();
 });
