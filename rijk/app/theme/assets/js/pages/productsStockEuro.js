@@ -75,24 +75,29 @@ $("#form").submit(function (e) {
 });
 
 function update(id) {
-  $.get(`/request-status/${id}`, function (dd) {
+  $.get(`/product/stock/${id}`, function (dd) {
     console.log(dd);
     $("#new").modal("show");
-    $("#form #status_name").val(dd.name);
+    $("#form #quantity").val(dd.quantity);
+    $("#form #id_package").val(dd.id_package);
+    $("#form #id_variety").val(dd.id_variety);
+    $("#form #sub_article_number").val(dd.sub_article_number);
+    $("#form #article_number").val(dd.article_number);
+    $("#form #value").val(dd.value);
+    $("#form #weight").val(dd.weight);
     $("#form #id").val(dd.id);
-    $("#form h4").text("Update Status");
-    $("#form p").text(`Update Status ${dd.name}`);
+    $("#form h4").text("Update");
+    $("#form p").text(``);
     $("#form button").text("Update");
-    $("#form").attr("action", "/request-status/update");
+    $("#form").attr("action", "/product/stock/update");
   });
 }
 
-
-function deletar(id) {
+function deletar(id, id_products_euro) {
   $.ajax({
-    url: `/request-status/delete`,
+    url: `/product/euro/stock/delete`,
     type: "delete",
-    data: { id },
+    data: { id, id_products_euro },
     success: function (dd) {
       console.log(dd);
       if (dd.resp > 0) {
@@ -126,20 +131,37 @@ function deletar(id) {
   });
   return false;
 }
-$.get(`/request-status/lists/all`, function (dd) {
+
+$("#value").mask("###0.00", {
+  reverse: true,
+});
+
+$.get(`/product/stock/lists/all`, function (dd) {
+  console.log(dd);
   var table = $("#root").tableSortable({
     data: dd,
     columns: {
-      name: "Status",
+      id_variety: "Variety",
+      article_number: "Article Number",
+      sub_article_number: "Sub Article Number",
+      quantity: "Quantity in MX",
+      id_package: "Packaging",
+      value: "Price",
+      weight: "Weight",
       actions: "",
     },
-    sortInitialOrder: "asc",
     searchField: "#searchField",
     responsive: {
       1100: {
         columns: {
-          name: "Name",
-          batch: "Batch",
+          id_variety: "Variety",
+          article_number: "Article Number",
+          sub_article_number: "SA Number",
+          quantity: "Quantity in MX",
+          id_package: "Packaging",
+          value: "Price",
+          weight: "Weight",
+          actions: "",
         },
       },
     },

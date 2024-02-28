@@ -72,7 +72,7 @@
             <?php endif; ?>
             <?php if ($userRoles == 0 || $userRoles == 1 || $userRoles == 4) : ?>
             <li class="submenu-item">
-              <a href="<?= url("product/stock"); ?>">Products Euro</a>
+              <a href="<?= url("product/stock/euro"); ?>">Products Euro</a>
             </li>
             <?php endif; ?>
 
@@ -157,7 +157,7 @@
               <a href="<?= url("import/products"); ?>">Products</a>
             </li>
             <li class="submenu-item ">
-              <a href="<?= url("import/products"); ?>">Products Euro</a>
+              <a href="<?= url("import/products/euro"); ?>">Products Euro</a>
             </li>
             <li class="submenu-item ">
               <a href="<?= url("import/products/clone"); ?>">Daily Stock</a>

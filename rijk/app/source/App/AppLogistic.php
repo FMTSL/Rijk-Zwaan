@@ -710,9 +710,11 @@ class AppLogistic
             // $orderLogistics->information = $data['information'];
             $orderLogistics->save();
         }
-        $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/client-service", 'mensagem' => "Product updated successfully"]) : json_encode(['resp' => 0, 'mensagem' => "Unable to update the Product"]);
-        header('Content-Type: application/json');
-        exit($json);
+        // $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/client-service", 'mensagem' => "Product updated successfully"]) : json_encode(['resp' => 0, 'mensagem' => "Unable to update the Product"]);
+        // header('Content-Type: application/json');
+        // exit($json);
+        echo "<script>alert('Product updated successfully'); window.location.href = '" . ROOT . "/orders';</script>";
+
     }
 
     public function updateActionQuotation($data): void
@@ -750,7 +752,7 @@ class AppLogistic
             $orderLogistics->save();
         }
         $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/orders", 'mensagem' => "Product updated successfully"]) : json_encode(['resp' => 0, 'mensagem' => "Unable to update the Product"]);
-        header('Content-Type: application/json');
+        ('Content-Type: application/json');
         exit($json);
     }
 

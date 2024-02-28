@@ -36,4 +36,3 @@ function url(string $uri = null): string
 
     return ROOT;
 }
-

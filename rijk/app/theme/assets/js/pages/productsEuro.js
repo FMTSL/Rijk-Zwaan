@@ -1,4 +1,16 @@
 /**
+ * Slug
+ */
+$(".slug-set #name").blur(function () {
+  const str = $(this).val();
+  const parsed = str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-")
+    .toLowerCase();
+  $("#form #slug").val(parsed);
+});
+/**
  * Form Ações
  */
 $("#form").submit(function (e) {
@@ -24,6 +36,7 @@ $("#form").submit(function (e) {
           loader: false,
           icon: "success",
         });
+        //$("#root").refresh(true);
         if (dd.redirect) {
           setTimeout(function () {
             window.location.href = dd.redirect;
@@ -40,6 +53,8 @@ $("#form").submit(function (e) {
           loader: false,
           icon: "error",
         });
+
+        $("#root").refresh(true);
         if (dd.redirect) {
           setTimeout(function () {
             window.location.href = dd.redirect;
@@ -75,22 +90,48 @@ $("#form").submit(function (e) {
 });
 
 function update(id) {
-  $.get(`/request-status/${id}`, function (dd) {
+  $.get(`/product/${id}`, function (dd) {
     console.log(dd);
     $("#new").modal("show");
-    $("#form #status_name").val(dd.name);
+    $("#form #input_name").val(dd.name);
+    $("#form #maturity").val(dd.maturity);
+
+    $(`#form #id_crop option[value=${dd.id_crop}]`).prop("selected", true);
+
+    $(`#form #checkbox`).prop("checked", dd.status);
+
+    $(`#form #id_variety option[value=${dd.id_variety}]`).prop(
+      "selected",
+      true
+    );
+    $(`#form #id_sales_unit option[value=${dd.id_sales_unit}]`).prop(
+      "selected",
+      true
+    );
+    $(
+      `#form #id_chemical_treatment option[value=${dd.id_chemical_treatment}]`
+    ).prop("selected", true);
+    $("#form #dtp_input2").val(dd.maturity);
+    $("#form #batch").val(dd.batch);
+
+    //Format Date PT-BR
+    if (dd.maturity === "") {
+      let data = new Date(dd.maturity);
+      let dataFormatada = data.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+      $("#form .form_date").text(dataFormatada);
+    }
+
     $("#form #id").val(dd.id);
-    $("#form h4").text("Update Status");
-    $("#form p").text(`Update Status ${dd.name}`);
+    $("#form h4").text("Update Product");
+    $("#form p").text(`Update Product ${dd.name}`);
     $("#form button").text("Update");
-    $("#form").attr("action", "/request-status/update");
+    $("#form").attr("action", "/product/update");
   });
 }
 
-
 function deletar(id) {
   $.ajax({
-    url: `/request-status/delete`,
+    url: `/product/delete`,
     type: "delete",
     data: { id },
     success: function (dd) {
@@ -126,20 +167,41 @@ function deletar(id) {
   });
   return false;
 }
-$.get(`/request-status/lists/all`, function (dd) {
+
+$(".form_date").datetimepicker({
+  language: "pt-BR",
+  weekStart: 1,
+  todayBtn: 1,
+  autoclose: 1,
+  todayHighlight: 1,
+  startView: 2,
+  minView: 2,
+  forceParse: 0,
+});
+$.get(`/productsEuro/lists/all`, function (dd) {
   var table = $("#root").tableSortable({
     data: dd,
     columns: {
-      name: "Status",
+      id_variety: "Variety",
+      id_crop: "Crop",
+      batch: "Batch",
+      name: "Product",
+      id_sales_unit: "Sales Unit",
+      id_chemical_treatment: "Chemical treatment",
+      maturity: "Expiry date",
+      stock: "Quantity",
+      status: "Status",
       actions: "",
     },
-    sortInitialOrder: "asc",
     searchField: "#searchField",
     responsive: {
       1100: {
         columns: {
-          name: "Name",
+          name: "Product",
           batch: "Batch",
+          stock: "Quantity",
+          status: "Status",
+          actions: "",
         },
       },
     },

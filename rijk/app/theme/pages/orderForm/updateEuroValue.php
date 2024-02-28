@@ -4,7 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newValue = $_POST["new_value"];
 
     // Conectar ao banco de dados
-    $pdo = new PDO("pgsql:host=rijk.postgres;port=5432;dbname=postgres", "postgres", "02W@9889forev");
+    $pdo = new PDO("pgsql:host=rijk.postgres;port=5432;dbname=aut_rijk", "postgres", "02W@9889forev");
 
     // Preparar e executar a declaração SQL para atualizar o valor do Euro
     $stmt = $pdo->prepare("UPDATE exchange SET value = :value WHERE id = 4"); // Atualizar o valor com id=4 (altere conforme necessário)
