@@ -14,7 +14,7 @@ define("DATA_LAYER_CONFIG", [
     "driver" => "pgsql",
     "host" => "rijk.postgres",
     "port" => "5432",
-    "dbname" => "postgres",
+    "dbname" => "aut_rijk",
     "username" => "postgres",
     "passwd" => "02W@9889forev",
     "options" => [
