@@ -1,6 +1,6 @@
 <?php
 try {
-    $conn = new PDO("pgsql:host=rijk.postgres;port=5432;dbname=aut_rijk", "postgres", "02W@9889forev");
+    $conn = new PDO("pgsql:host=rijk.postgres;port=5432;dbname=postgres", "postgres", "02W@9889forev");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Define o timezone para o horário de Brasília
