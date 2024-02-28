@@ -17,7 +17,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
           <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?= url(); ?>">Dashboard</a></li>
-              <li class="breadcrumb-item"><a href="<?= url("products-euro"); ?>">Products</a></li>
+              <li class="breadcrumb-item"><a href="<?= url("products"); ?>">Products</a></li>
               <li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
             </ol>
           </nav>
@@ -35,8 +35,8 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                 <?php if ($userRoles == 0 || $userRoles == 1 || $userRoles == 4) : ?>
                 <button class="btn btn-success float-right mb-3 ml-3" data-bs-toggle="modal" data-bs-target="#new"><i
                     class="fa fa-plus"></i> <?= $title; ?></button>
-                <a class="btn btn-info float-right mb-3 mr-4" href="<?= url("export/products-euro"); ?>" target="_blank"><i
-                    class="fa fa-download"></i> Generate Stock</a>
+                <a class="btn btn-info float-right mb-3 mr-4" href="<?= url("export/products"); ?>" target="_blank"><i
+                    class="fa fa-download"></i> Generate Stock Euro</a>
                 <?php endif; ?>
 
                 <div class="container">

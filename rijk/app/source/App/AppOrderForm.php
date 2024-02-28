@@ -1836,7 +1836,7 @@ class AppOrderForm
 
     public function getEuroValue(): void
 {
-    $pdo = new \PDO("pgsql:host=rijk.postgres;port=5432;dbname=postgres", "postgres", "02W@9889forev");
+    $pdo = new \PDO("pgsql:host=rijk.postgres;port=5432;dbname=aut_rijk", "postgres", "02W@9889forev");
     $stmt = $pdo->query("SELECT * FROM exchange");
     $values = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -1848,9 +1848,5 @@ class AppOrderForm
         echo json_encode(['error' => 'Nenhum valor encontrado']);
     }
 }
-
-
-
-
 
 }

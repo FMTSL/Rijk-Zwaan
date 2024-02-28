@@ -18,8 +18,8 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                 <div class="col-12 col-md-4 order-md-2" id="euroPriceDiv" style="display: none;">
                     <h3>Preço do Euro:</h3>
                     <h3 class="text-3xl"><?php include 'getPriceEuro.php'; ?></p>
-                    <input type="text">
-                    <button class="btn btn-success" type="submit">Atualizar</button>
+                    <input type="number" id="novoValor" min="0.01" step="0.01" require>
+                    <button id="btnAtualizar" class="btn btn-success" type="button">Atualizar</button>
                 </div>     
                 <div class="col-12 col-md-5 order-md-3 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -175,12 +175,6 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
     $("select").select2();
 
     $(document).ready(function() {
-        $.get('/get-euro-price.php', function(data) {
-            $('#euro-price').html('Preço do Euro: ' + data);
-        });
-    });
-
-    $(document).ready(function() {
     // Extrai o ID do cliente da URL
     var url = window.location.href;
     var urlParts = url.split('/');
@@ -229,6 +223,37 @@ $(document).ready(function() {
         } else {
             console.log('Cliente com ID ' + customerId + ' não encontrado.');
         }
+    });
+});
+
+$(document).ready(function() {
+    $('#btnAtualizar').click(function(e) {
+        e.preventDefault();
+
+        var novoValor = $('#novoValor').val();
+
+        console.log('Novo valor:', novoValor);
+
+        if (novoValor.trim() === '') {
+            alert('Por favor, insira um novo valor');
+            return;
+        }
+
+        $.ajax({
+            url: '/theme/pages/orderForm/updateValue.php',
+            type: 'POST',
+            data: { id: 6, value: novoValor },
+            success: function(response) {
+                console.log('Resposta do servidor:', response);
+                $('#value').text('Preço do Euro: ' + novoValor);
+                alert('Valor atualizado com sucesso');
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro ao atualizar o valor:', error);
+                alert('Erro ao atualizar o valor');
+            }
+        });
     });
 });
 

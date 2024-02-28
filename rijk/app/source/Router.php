@@ -171,6 +171,15 @@ $route->post("/product/stock/update", "AppProductsStock:updateAction");
 $route->delete("/product/stock/delete", "AppProductsStock:deleteAction");
 
 
+$route->get("/product/stockEuro/", "AppProductsStockEuro:listView");
+$route->get("/product/stockEuro/lists/all", "AppProductsStockEuro:listViewAll");
+$route->get("/product/listEuro/{id}", "AppProductsStockEuro:listViewId");
+$route->post("/product/stockEuro/new/", "AppProductsStockEuro:newAction");
+$route->get("/product/stockEuro/{id}", "AppProductsStockEuro:updateView");
+$route->post("/product/stockEuro/update", "AppProductsStockEuro:updateAction");
+$route->delete("/product/stockEuro/delete", "AppProductsStockEuro:deleteAction");
+
+
 $route->get("/product/stock/clone", "AppProductsStockClone:listView");
 $route->get("/product/stock/clone/lists/all", "AppProductsStockClone:listViewAll");
 $route->get("/product/list/clone/{id}", "AppProductsStockClone:listViewId");
@@ -339,7 +348,7 @@ $route->get("/files/new", "AppFiles:listViewNew");
 $route->post("/files/new-action", "AppFiles:newAction");
 $route->delete("/files/delete", "AppFiles:deleteAction");
 
-$route->get("/get-euro-value/{id}", "AppOrderForm:getEuroValue");
+$route->get("/get-euro-value/all", "AppOrderForm:getEuroValue");
 
 /**
  * ERROR

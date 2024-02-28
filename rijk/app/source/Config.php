@@ -2,7 +2,7 @@
 //error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 define("SITE", "RIJK");
 
-$live = false;
+$live = true;
 if ($live) {
     define("ROOT", "https://homolog.rijkzwaanbrasil.com.br");
 } else {
@@ -14,7 +14,7 @@ define("DATA_LAYER_CONFIG", [
     "driver" => "pgsql",
     "host" => "rijk.postgres",
     "port" => "5432",
-    "dbname" => "postgres",
+    "dbname" => "aut_rijk",
     "username" => "postgres",
     "passwd" => "02W@9889forev",
     "options" => [
@@ -36,4 +36,3 @@ function url(string $uri = null): string
 
     return ROOT;
 }
-
