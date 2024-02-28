@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Conexão com o banco de dados
     $host = 'rijk.postgres';
-    $db = 'postgres';
+    $db = 'aut_rijk';
     $user = 'postgres';
     $password = '02W@9889forev';
     $port = 5432; // Porta padrão do PostgreSQL
