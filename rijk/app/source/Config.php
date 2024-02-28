@@ -2,7 +2,7 @@
 //error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 define("SITE", "RIJK");
 
-$live = false;
+$live = true;
 if ($live) {
     define("ROOT", "https://homolog.rijkzwaanbrasil.com.br");
 } else {
