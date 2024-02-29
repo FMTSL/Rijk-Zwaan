@@ -239,24 +239,38 @@ $(document).ready(function() {
             return;
         }
 
+        // Obter o último id da tabela exchange
         $.ajax({
             url: '/theme/pages/orderForm/updateValue.php',
             type: 'POST',
-            data: { id: 6, value: novoValor },
-            success: function(response) {
-                console.log('Resposta do servidor:', response);
-                $('#value').text('Preço do Euro: ' + novoValor);
-                alert('Valor atualizado com sucesso');
-                location.reload();
+            data: { action: 'getLastId' }, // Adiciona um parâmetro de ação para identificar a solicitação
+            success: function(lastId) {
+                console.log('Último ID:', lastId);
+
+                // Enviar a atualização com o último ID obtido
+                $.ajax({
+                    url: '/theme/pages/orderForm/updateValue.php',
+                    type: 'POST',
+                    data: { id: lastId, value: novoValor },
+                    success: function(response) {
+                        console.log('Resposta do servidor:', response);
+                        $('#value').text('Preço do Euro: ' + novoValor);
+                        alert('Valor atualizado com sucesso');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Erro ao atualizar o valor:', error);
+                        alert('Erro ao atualizar o valor');
+                    }
+                });
             },
             error: function(xhr, status, error) {
-                console.error('Erro ao atualizar o valor:', error);
-                alert('Erro ao atualizar o valor');
+                console.error('Erro ao obter o último ID:', error);
+                alert('Erro ao obter o último ID');
             }
         });
     });
 });
-
 
 </script>
 <?php $v->end(); ?>
