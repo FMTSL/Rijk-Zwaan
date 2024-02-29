@@ -178,6 +178,14 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                         </div>
 
                       </div>
+
+                      <div class="col-md-3">
+                          <div class="form-group position-relative mb-4">
+                              <label for="value">Value</label>
+                              <input type="checkbox" class="form-check-input" id="value" name="value" value="1" <?php echo $client->value == 1 ? 'checked' : ''; ?>>
+                          </div>
+                      </div>
+
                     </div>
                     <div class="row mb-4">
                       <h4 class="col-md-9">Adresses</h4>

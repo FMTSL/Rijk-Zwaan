@@ -75,7 +75,6 @@
               <a href="<?= url("product/stock/euro"); ?>">Products Euro</a>
             </li>
             <?php endif; ?>
-
             <li class="submenu-item">
               <a href="<?= url("product/stock/clone"); ?>">Daily Stock</a>
             </li>
@@ -89,10 +88,6 @@
 
             <li class="submenu-item">
               <a href="<?= url("discounts"); ?>">Discount</a>
-            </li>
-
-            <li class="submenu-item">
-              <a href="<?= url("discount/euro"); ?>">Discount Euro</a>
             </li>
 
             <li class="submenu-item">

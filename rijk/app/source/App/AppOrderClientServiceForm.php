@@ -34,8 +34,6 @@ class AppOrderClientServiceForm
         $this->acoes = new Acoes();
         $this->coProductsStock = new AppProductsStock();
         $this->coProductsRelationshipStock = new AppRelationshipStockCartOrder();
-        $this->coProductsStockEuro = new AppProductsStockEuro();
-        $this->coProductsRelationshipStockEuro = new AppRelationshipStockEuroCartOrder();
     }
 
     public function listView(): void

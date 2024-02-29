@@ -75,7 +75,7 @@ $("#form").submit(function (e) {
 });
 
 function update(id) {
-  $.get(`/product/stock/${id}`, function (dd) {
+  $.get(`/product/stock/euro/${id}`, function (dd) {
     console.log(dd);
     $("#new").modal("show");
     $("#form #quantity").val(dd.quantity);
@@ -89,15 +89,15 @@ function update(id) {
     $("#form h4").text("Update");
     $("#form p").text(``);
     $("#form button").text("Update");
-    $("#form").attr("action", "/product/stock/update");
+    $("#form").attr("action", "/product/stock/euro/update");
   });
 }
 
-function deletar(id, id_products_euro) {
+function deletar(id, id_products) {
   $.ajax({
-    url: `/product/euro/stock/delete`,
+    url: `/product/stock/euro/delete`,
     type: "delete",
-    data: { id, id_products_euro },
+    data: { id, id_products },
     success: function (dd) {
       console.log(dd);
       if (dd.resp > 0) {
@@ -136,7 +136,7 @@ $("#value").mask("###0.00", {
   reverse: true,
 });
 
-$.get(`/product/stock/lists/all`, function (dd) {
+$.get(`/product/stock/euro/lists/all`, function (dd) {
   console.log(dd);
   var table = $("#root").tableSortable({
     data: dd,

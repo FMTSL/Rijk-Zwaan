@@ -2,19 +2,30 @@
  * Form Ações
  */
 $("#form").submit(function (e) {
+  e.preventDefault(); // Impede o envio padrão do formulário
+
+  // Obter o valor do campo euro
+  var euroValue = $("#euro").is(":checked") ? 1 : 0;
+  console.log("Euro Value:", euroValue);
+
+  // Adicionar o valor do campo euro ao FormData
   var formData = new FormData(this);
+  formData.append("euro", euroValue);
+
+  // Continuar com o envio do formulário usando AJAX
   $.ajax({
     url: $("#form").attr("action"),
     type: "post",
     data: formData,
     beforeSend: function () {
+      console.log("Before Send");
       $("#form button.btn").hide();
       $(".carrega").html(
         '<div class="env"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: transparent; display: block; shape-rendering: auto;" width="30px" height="30px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#a90e19" stroke="none"><animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 51;360 50 51"></animateTransform></path><br/>Aguarde processando informações!</div>'
       );
     },
     success: function (dd) {
-      console.log(dd);
+      console.log("Success:", dd);
       $("#form").trigger("reset");
       if (dd.resp > 0) {
         $.toast({
@@ -54,7 +65,7 @@ $("#form").submit(function (e) {
       }
     },
     error: function (dd) {
-      console.log(dd);
+      console.log("Error:", dd);
       $("#form button.btn").show();
       $(".carrega").hide();
       $.toast({
@@ -86,13 +97,14 @@ $("#formAddress").submit(function (e) {
     type: "post",
     data: formData,
     beforeSend: function () {
+      console.log("Before Send");
       $("#form button.btn").hide();
       $(".carrega").html(
         '<div class="env"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: transparent; display: block; shape-rendering: auto;" width="30px" height="30px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#a90e19" stroke="none"><animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 51;360 50 51"></animateTransform></path><br/>Aguarde processando informações!</div>'
       );
     },
     success: function (dd) {
-      console.log(dd);
+      console.log("Success:", dd);
       $("#form").trigger("reset");
       if (dd.resp > 0) {
         $.toast({
@@ -128,7 +140,7 @@ $("#formAddress").submit(function (e) {
       }
     },
     error: function (dd) {
-      console.log(dd);
+      console.log("Error:", dd);
       $("#form button.btn").show();
       $(".carrega").hide();
       $.toast({
@@ -181,7 +193,7 @@ function deletarEnd(id) {
     type: "delete",
     data: { id },
     success: function (dd) {
-      console.log(dd);
+      console.log("Success:", dd);
       if (dd.resp > 0) {
         $.toast({
           text: dd.mensagem,
@@ -303,7 +315,7 @@ function deletar(id) {
     type: "delete",
     data: { id },
     success: function (dd) {
-      console.log(dd);
+      console.log("Success:", dd);
       if (dd.resp > 0) {
         $.toast({
           text: dd.mensagem,

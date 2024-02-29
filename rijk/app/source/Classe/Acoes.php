@@ -19,6 +19,7 @@ use Source\Models\ProductsCrop;
 use Source\Models\AssistStatus;
 use Source\Models\AddressState;
 use Source\Models\ProductsStock;
+use Source\Models\ProductsStockEuro;
 use Source\Models\ProductsStockClone;
 use Source\Models\OrderLogistics;
 use Source\Models\AssistTaxRates;
@@ -95,6 +96,7 @@ class Acoes
         $this->addressState = new AddressState();
         $this->assistStatus = new AssistStatus();
         $this->productsStock = new ProductsStock();
+        $this->productsStockEuro = new ProductsStockEuro();
         $this->productsStockClone = new ProductsStockClone();
         $this->assistTaxRates = new AssistTaxRates();
         $this->orderLogistics = new OrderLogistics();

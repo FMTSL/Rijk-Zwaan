@@ -88,6 +88,7 @@ class AppCustomers
         }
     }
 
+
     public function newAction($data): void
     {
         $itens = $this->acoes->getByField('customers', 'email', $data['email']);
@@ -172,7 +173,8 @@ class AppCustomers
                 'salesman' => $this->acoes->getFind('salesman'),
                 'categoryCustomer' => $this->acoes->getFind('customerCategory'),
                 'state' => $this->acoes->getFind('addressState'),
-                'country' => $this->acoes->getFind('addressCountry')
+                'country' => $this->acoes->getFind('addressCountry'),
+                'value' => $client->value // Adicione este campo para exibir o valor atual da coluna 'value'
             ]);
         } else {
             redirect("/login");
@@ -196,7 +198,7 @@ class AppCustomers
         $cli->cnpj = $data['cnpj'];
         $cli->special_client = $data['special_client'];
         $cli->euro = $data['euro'];
-
+        $cli->value = isset($data['value']) ? 1 : 0; // Atualiza o valor da coluna 'value' com base no checkbox
         $cli->save();
 
         if ($cli->id > 0) {
