@@ -35,7 +35,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                 <?php if ($userRoles == 0 || $userRoles == 1 || $userRoles == 4) : ?>
                 <button class="btn btn-success float-right mb-3 ml-3" data-bs-toggle="modal" data-bs-target="#new"><i
                     class="fa fa-plus"></i> <?= $title; ?></button>
-                <a class="btn btn-info float-right mb-3 mr-4" href="<?= url("export/products"); ?>" target="_blank"><i
+                <a class="btn btn-info float-right mb-3 mr-4" href="<?= url("export/products/euro"); ?>" target="_blank"><i
                     class="fa fa-download"></i> Generate Stock</a>
                 <?php endif; ?>
 
@@ -75,7 +75,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
   <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <form method="post" id="form" action="<?= url("product/stock/new"); ?>">
+        <form method="post" id="form" action="<?= url("/product/stock/euro/new"); ?>">
           <h4 class="card-title text-left">Add</h4>
           <hr>
           <p class="text-left">Inventory registration for the <?= $title; ?></p>
@@ -144,7 +144,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
 <?php $v->start("script"); ?>
 <script type="text/javascript" src="<?= url("theme/assets/js/table-sortable.js"); ?>" charset="UTF-8"></script>
 <script type="text/javascript" src="<?= url("theme/assets/js/jquery.mask.js"); ?>" charset="UTF-8"></script>
-<script src="<?= url("theme/assets/js/pages/productsStock.js"); ?>"></script>
+<script src="<?= url("theme/assets/js/pages/productsStockEuro.js"); ?>"></script>
 <?php $v->end(); ?>
 <?php include __DIR__ . "/../../template/modal.php"; ?>
 <?php include __DIR__ . "/../../template/footer.php"; ?>

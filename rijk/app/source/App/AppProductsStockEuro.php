@@ -9,7 +9,7 @@ use Source\Models\ProductsStockEuro;
 
 use function JBZoo\Data\json;
 
-class AppProductsStockEuroEuro
+class AppProductsStockEuro
 {
 
     private $view;
@@ -26,8 +26,8 @@ class AppProductsStockEuroEuro
     public function listView($data): void
     {
         if ($this->sessao->getUser()) {
-            echo $this->view->render("pages/productsStockEuro/main", [
-                "title" => 'Products',
+            echo $this->view->render("pages/productsStockEuro/mainEuro", [
+                "title" => 'Products Euro',
                 "description" => "List of all products registered in our system",
                 "userRoles" => $this->sessao->getRoles(),
                 'package' => $this->acoes->getFind('productsPackaging'),
@@ -68,31 +68,31 @@ class AppProductsStockEuroEuro
     }
 
     public function listViewAll($data): void
-    {
-        $itens = $this->acoes->getFind('productsStockEuro');
-        if ($itens) {
-            foreach ($itens as &$item) {
-                $its[] = [
-                    'id' => $item->id,
-                    'quantity' => $item->quantity,
-                    'value' => number_format($item->value, 2, ',', '.'),
-                    'weight' => number_format($item->weight, 2, '.', '.'),
-                    'id_package' => $this->acoes->getData('productsPackaging', $item->id_package, 'name'),
-                    'id_variety' => $this->acoes->getData('productsVariety', $item->id_variety, 'name'),
-                    'sub_article_number' => $item->sub_article_number,
-                    'article_number' => $item->article_number,
-                    'status' => $item->status,
-                    'actions' => '
-                    <button class="btn btn-success" onclick="update(' . $item->id . ')"><i class="fa fa-edit"></i></button> <button onclick="deletar(' . $item->id . ')" class="btn btn-danger"><span class="fa fa-times"></span></button>',
-                ];
-            }
-        } else {
-            $its = 0;
+{
+    $itens = $this->acoes->getFind('productsStockEuro');
+    $its = [];
+    if ($itens) {
+        foreach ($itens as &$item) {
+            $its[] = [
+                'id' => $item->id,
+                'quantity' => $item->quantity,
+                'value' => number_format($item->value, 2, ',', '.'),
+                'weight' => number_format($item->weight, 2, '.', '.'),
+                'id_package' => $this->acoes->getData('productsPackaging', $item->id_package, 'name'),
+                'id_variety' => $this->acoes->getData('productsVariety', $item->id_variety, 'name'),
+                'sub_article_number' => $item->sub_article_number,
+                'article_number' => $item->article_number,
+                'status' => $item->status,
+                'actions' => '
+                <button class="btn btn-success" onclick="update(' . $item->id . ')"><i class="fa fa-edit"></i></button> <button onclick="deletar(' . $item->id . ')" class="btn btn-danger"><span class="fa fa-times"></span></button>',
+            ];
         }
-        $json = json_encode($its);
-        header('Content-Type: application/json');
-        exit($json);
     }
+    $json = json_encode($its);
+    header('Content-Type: application/json');
+    exit($json);
+}
+
 
     public function newAction($data): void
     {
@@ -108,7 +108,7 @@ class AppProductsStockEuroEuro
         $item->status = true;
         $item->save();
         //dd($item);
-        $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/product/stock", 'mensagem' => "Item successfully registered"]) : json_encode(['resp' => 0, 'mensagem' => "It was not possible to register the item"]);
+        $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/product/stock/euro", 'mensagem' => "Item successfully registered"]) : json_encode(['resp' => 0, 'mensagem' => "It was not possible to register the item"]);
 
         header('Content-Type: application/json');
         exit($json);
@@ -144,7 +144,7 @@ class AppProductsStockEuroEuro
         $item->value = $data['value'];
         $item->status = true;
         $item->save();
-        $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/product/stock", 'mensagem' => "Item updated successfully"]) : json_encode(['resp' => 0, 'mensagem' => "Unable to update item"]);
+        $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/product/stock/euro", 'mensagem' => "Item updated successfully"]) : json_encode(['resp' => 0, 'mensagem' => "Unable to update item"]);
         header('Content-Type: application/json');
         exit($json);
     }
@@ -161,7 +161,7 @@ class AppProductsStockEuroEuro
         $item = (new ProductsStockEuro())->findById($data['id']);
         $item->destroy();
 
-        $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/product/stock", 'mensagem' => "Item deleted successfully"]) : json_encode(['resp' => 0, 'mensagem' => "Could not delete selected item"]);
+        $json = $item->id > 0 ? json_encode(['resp' => 1, 'modal' => 'new', 'redirect' => ROOT . "/product/stock/euro", 'mensagem' => "Item deleted successfully"]) : json_encode(['resp' => 0, 'mensagem' => "Could not delete selected item"]);
         header('Content-Type: application/json');
         exit($json);
     }

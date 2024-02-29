@@ -170,16 +170,6 @@ $route->get("/product/stock/{id}", "AppProductsStock:updateView");
 $route->post("/product/stock/update", "AppProductsStock:updateAction");
 $route->delete("/product/stock/delete", "AppProductsStock:deleteAction");
 
-
-$route->get("/product/stockEuro/", "AppProductsStockEuro:listView");
-$route->get("/product/stockEuro/lists/all", "AppProductsStockEuro:listViewAll");
-$route->get("/product/listEuro/{id}", "AppProductsStockEuro:listViewId");
-$route->post("/product/stockEuro/new/", "AppProductsStockEuro:newAction");
-$route->get("/product/stockEuro/{id}", "AppProductsStockEuro:updateView");
-$route->post("/product/stockEuro/update", "AppProductsStockEuro:updateAction");
-$route->delete("/product/stockEuro/delete", "AppProductsStockEuro:deleteAction");
-
-
 $route->get("/product/stock/clone", "AppProductsStockClone:listView");
 $route->get("/product/stock/clone/lists/all", "AppProductsStockClone:listViewAll");
 $route->get("/product/list/clone/{id}", "AppProductsStockClone:listViewId");
@@ -188,6 +178,14 @@ $route->get("/product/stock/clone/{id}", "AppProductsStockClone:updateView");
 $route->post("/product/stock/clone/update", "AppProductsStockClone:updateAction");
 $route->delete("/product/stock/clone/delete", "AppProductsStockClone:deleteAction");
 $route->delete("/product/stock/clone/delete/all", "AppProductsStockClone:deleteAllAction");
+
+$route->get("/product/stock/euro", "AppProductsStockEuro:listView");
+$route->get("/product/stock/euro/lists/all", "AppProductsStockEuro:listViewAll");
+$route->get("/product/list/euro/{id}", "AppProductsStockEuro:listViewId");
+$route->post("/product/stock/euro/new", "AppProductsStockEuro:newAction");
+$route->get("/product/stock/euro/{id}", "AppProductsStockEuro:updateView");
+$route->post("/product/stock/euro/update", "AppProductsStockEuro:updateAction");
+$route->delete("/product/stock/euro/delete", "AppProductsStockEuro:deleteAction");
 
 
 $route->get("/bonus-order", "AppBonusOrder:listView");
@@ -329,6 +327,10 @@ $route->delete("/payment-type/delete", "AppCustomerPaymentTerm:deleteAction");
 $route->get("/export/products", "AppExportsProductsStock:newAction");
 $route->get("/import/products", "AppImportsProductsStock:listView");
 $route->post("/import/products/new", "AppImportsProductsStock:newAction");
+
+$route->get("/export/products/euro", "AppExportsProductsStockEuro:newAction");
+$route->get("/import/products/euro", "AppImportsProductsStockEuro:listView");
+$route->post("/import/products/new/euro", "AppImportsProductsStockEuro:newAction");
 
 $route->get("/export/products/clone", "AppExportsProductsStockClone:newAction");
 $route->get("/import/products/clone", "AppImportsProductsClone:listView");

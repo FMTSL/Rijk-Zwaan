@@ -5,12 +5,12 @@ namespace Source\App;
 use League\Plates\Engine;
 use Source\Classe\Acoes;
 use Source\Classe\Sessao;
-use Source\Models\ProductsStock;
+use Source\Models\ProductsStockEuro;
 use Source\Models\Products;
 
 use function JBZoo\Data\json;
 
-class AppProducts
+class AppProductsEuro
 {
 
     private $view;
@@ -38,7 +38,7 @@ class AppProducts
                     'id_variety' => $this->acoes->getData('productsVariety', $item->id_variety, 'name'),
                     'id_sales_unit' => $this->acoes->getData('productsSalesUnit', $item->id_sales_unit, 'type'),
                     'id_chemical_treatment' => $this->acoes->getData('productsChemicalTreatment', $item->id_chemical_treatment, 'name'),
-                    'stock' =>  $this->acoes->getByField('productsStock', 'id_products',  $item->id)->quantity,
+                    'stock' =>  $this->acoes->getByField('productsStockEuro', 'id_products',  $item->id)->quantity,
                     'batch' => $item->batch,
                     'maturity' => $item->maturity,
                     'actions' =>
@@ -77,7 +77,7 @@ class AppProducts
                 'package' => $this->acoes->getFind('productsPackaging'),
                 'productsCrop' => $this->acoes->getFind('productsCrop'),
                 'calibre' => $this->acoes->getFind('productsCalibre'),
-                'stock' => $this->acoes->getFind('productsStock'),
+                'stock' => $this->acoes->getFind('productsStockEuro'),
             ]);
         } else {
             redirect("/login");
@@ -118,7 +118,7 @@ class AppProducts
             'id_variety' => $itens->id_variety,
             'id_sales_unit' => $itens->id_sales_unit,
             'id_chemical_treatment' => $itens->id_chemical_treatment,
-            'stock' =>  $this->acoes->getByField('productsStock', 'id_products',  $itens->id)->quantity,
+            'stock' =>  $this->acoes->getByField('productsStockEuro', 'id_products',  $itens->id)->quantity,
             'maturity' => $itens->maturity,
             'batch' => $itens->batch,
         ]);
@@ -150,7 +150,7 @@ class AppProducts
 
     public function updateActionStock($data): void
     {
-        $stock = (new ProductsStock())->findById($data['stock_id']);
+        $stock = (new ProductsStockEuro())->findById($data['stock_id']);
         $stock->quantity = $data['quantity'];
         $stock->id_package = $data['id_package'];
         $stock->save();
@@ -178,7 +178,7 @@ class AppProducts
     public function deleteAction($data)
     {
         $item = (new Products())->findById($data['id']);
-        $itemStock = (new ProductsStock())->findById($item->id_stock);
+        $itemStock = (new ProductsStockEuro())->findById($item->id_stock);
 
         $item->destroy();
         $itemStock->destroy();

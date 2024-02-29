@@ -68,31 +68,31 @@ class AppProductsStock
     }
 
     public function listViewAll($data): void
-    {
-        $itens = $this->acoes->getFind('productsStock');
-        if ($itens) {
-            foreach ($itens as &$item) {
-                $its[] = [
-                    'id' => $item->id,
-                    'quantity' => $item->quantity,
-                    'value' => number_format($item->value, 2, ',', '.'),
-                    'weight' => number_format($item->weight, 2, '.', '.'),
-                    'id_package' => $this->acoes->getData('productsPackaging', $item->id_package, 'name'),
-                    'id_variety' => $this->acoes->getData('productsVariety', $item->id_variety, 'name'),
-                    'sub_article_number' => $item->sub_article_number,
-                    'article_number' => $item->article_number,
-                    'status' => $item->status,
-                    'actions' => '
-                    <button class="btn btn-success" onclick="update(' . $item->id . ')"><i class="fa fa-edit"></i></button> <button onclick="deletar(' . $item->id . ')" class="btn btn-danger"><span class="fa fa-times"></span></button>',
-                ];
-            }
-        } else {
-            $its = 0;
+{
+    $itens = $this->acoes->getFind('productsStock');
+    $its = [];
+    if ($itens) {
+        foreach ($itens as &$item) {
+            $its[] = [
+                'id' => $item->id,
+                'quantity' => $item->quantity,
+                'value' => number_format($item->value, 2, ',', '.'),
+                'weight' => number_format($item->weight, 2, '.', '.'),
+                'id_package' => $this->acoes->getData('productsPackaging', $item->id_package, 'name'),
+                'id_variety' => $this->acoes->getData('productsVariety', $item->id_variety, 'name'),
+                'sub_article_number' => $item->sub_article_number,
+                'article_number' => $item->article_number,
+                'status' => $item->status,
+                'actions' => '
+                <button class="btn btn-success" onclick="update(' . $item->id . ')"><i class="fa fa-edit"></i></button> <button onclick="deletar(' . $item->id . ')" class="btn btn-danger"><span class="fa fa-times"></span></button>',
+            ];
         }
-        $json = json_encode($its);
-        header('Content-Type: application/json');
-        exit($json);
     }
+    $json = json_encode($its);
+    header('Content-Type: application/json');
+    exit($json);
+}
+
 
     public function newAction($data): void
     {
