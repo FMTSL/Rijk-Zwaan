@@ -62,7 +62,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                                                     <span class="pr-3">Assist Status:</span>
                                                     <div class="d-flex justify-content-end">
                                                         <select class="custom-select" name="assistStatus" id="statusFilter">
-                                                            <option value="" disabled selected>All</option>
+                                                            <option value="">All</option>
                                                             <option value="Pending Approval">Pending Approval</option>
                                                             <option value="Order Approved">Order Approved</option>
                                                             <option value="In Process">In Process</option>
@@ -98,7 +98,7 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                                                     <span class="pr-3">Sales Representative:</span>
                                                     <div class="d-flex justify-content-end">
                                                         <select class="custom-select" id="salesmanFilter">
-                                                            <option value="" disabled selected>---</option>
+                                                            <option value="">All</option>
                                                             <option value="ANDRESSA">Andressa</option>
                                                             <option value="BAHIA">Bahia</option>
                                                             <option value="ELAINE">Elaine</option>
