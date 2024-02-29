@@ -366,5 +366,3 @@ $route->dispatch();
 if ($route->error()) {
     $route->redirect("/ops/{$route->error()}");
 }
-
-
