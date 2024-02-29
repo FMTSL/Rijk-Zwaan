@@ -1,4 +1,23 @@
 <?php $v->start("sidebar"); ?>
+<?php
+$url = explode('/', $_SERVER['REQUEST_URI']);
+$customerId = $url[count($url) - 2];
+$specificCustomer = null; 
+$customers = json_decode(file_get_contents('http://localhost/customers/lists/all'), true);
+foreach ($customers as $customer) {
+    if ($customer['id'] == $customerId) {
+        $specificCustomer = $customer;
+        break;
+    }
+}
+
+if ($specificCustomer) {
+    $euroStatus = $specificCustomer['euro'] ? 'Sim' : 'Não';
+    if ($specificCustomer['euro']) {
+        
+    }
+}
+?>
 <nav class="flex items-center justify-between flex-wrap p-0 bg-white">
   <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
     <div class="text-sm lg:flex-grow">
@@ -71,9 +90,11 @@
             </li>
             <?php endif; ?>
             <?php if ($userRoles == 0 || $userRoles == 1 || $userRoles == 4) : ?>
-            <li class="submenu-item">
-              <a href="<?= url("product/stock/euro"); ?>">Products Euro</a>
-            </li>
+              <?php if ($specificCustomer['euro']) : ?>
+                  <li class="submenu-item">
+                      <a href="<?= url("product/stock/euro"); ?>">Products Euro</a>
+                  </li>
+              <?php endif; ?>
             <?php endif; ?>
             <li class="submenu-item">
               <a href="<?= url("product/stock/clone"); ?>">Daily Stock</a>
