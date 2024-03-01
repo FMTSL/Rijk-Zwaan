@@ -27,7 +27,8 @@ class Customers extends DataLayer
         string $telephone,
         $relation_number,
         int $id_category,
-        string $cnpj
+        string $cnpj,
+        bool $euro // Campo 'euro'
     ) {
         $this->id_salesman = $users->id;
         $this->id_customer = $cli->id;
@@ -44,6 +45,7 @@ class Customers extends DataLayer
         $this->id_category = $id_category;
         $this->cnpj = $cnpj;
         $this->special_client = $special_client;
+        $this->euro = $euro; // Campo 'euro'
         $this->save();
         return $this;
     }
