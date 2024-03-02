@@ -46,7 +46,7 @@ class AppCustomers
                     'mobile' => $item->mobile,
                     'cnpj' => $item->cnpj,
                     'special_client' => $item->special_client == 1 ? 'Yes' : 'No',
-
+                    'euro' => $item->euro,
                     'actions' => $this->sessao->getRoles() != 2 ? '<a class="btn btn-success" href="' . ROOT . '/customer/' . $item->id . '"><i class="fa fa-edit"></i></a> <button onclick="deletar(' . $item->id . ')" class="btn btn-danger"><i class="fa fa-times"></i></button>' : '',
                 ];
             }
@@ -88,8 +88,12 @@ class AppCustomers
         }
     }
 
+
     public function newAction($data): void
-    {
+    {   
+        var_dump($data); // Dump dos dados enviados
+        var_dump($data['euro']); // Dump do valor de 'euro'
+
         $itens = $this->acoes->getByField('customers', 'email', $data['email']);
         if ($itens) {
             $json = json_encode(['resp' => 0, 'mensagem' => "There is already a customer with this email! try a new one."]);
@@ -133,6 +137,7 @@ class AppCustomers
                     $cli->id_customer = $item->id;
                     $cli->cnpj = $data['cnpj'];
                     $cli->special_client = $data['special_client'];
+                    $cli->euro = isset($data['euro']) ? true : false; // Campo 'euro'
                     $cli->save();
 
                     //dd($cli);
@@ -171,7 +176,7 @@ class AppCustomers
                 'salesman' => $this->acoes->getFind('salesman'),
                 'categoryCustomer' => $this->acoes->getFind('customerCategory'),
                 'state' => $this->acoes->getFind('addressState'),
-                'country' => $this->acoes->getFind('addressCountry')
+                'country' => $this->acoes->getFind('addressCountry'),
             ]);
         } else {
             redirect("/login");
@@ -180,6 +185,8 @@ class AppCustomers
 
     public function updateAction($data): void
     {
+        
+
         $cli = (new Customers())->findById($data['id']);
         $cli->id_salesman = $data['id_salesman'];
         $cli->id_category_customer = $data['id_category_customer'];
@@ -194,6 +201,7 @@ class AppCustomers
         $cli->bio = $data['bio'];
         $cli->cnpj = $data['cnpj'];
         $cli->special_client = $data['special_client'];
+        $cli->euro = isset($data['euro']) ? true : false; // Campo 'euro'
         $cli->save();
 
         if ($cli->id > 0) {
