@@ -180,9 +180,12 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                       </div>
 
                       <div class="col-md-3">
-                          <div class="form-group position-relative mb-4">
-                              <label for="value">Euro</label>
-                              <input type="checkbox" class="form-check-input" id="value" name="value" value="1" <?php echo $client->value == 1 ? 'checked' : ''; ?>>
+                          <div class="form-group position-relative mb-4 slug-set">
+                              <label for="euro">Euro</label>
+                              <select class="form-select form-control " id="euro" name="euro">
+                                  <option value="0" <?php if ($client->euro == 0) : ?> selected <?php endif; ?>>No</option>
+                                  <option value="1" <?php if ($client->euro == 1) : ?> selected <?php endif; ?>>Yes</option>
+                              </select>
                           </div>
                       </div>
 
