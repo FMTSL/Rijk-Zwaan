@@ -90,7 +90,10 @@ class AppCustomers
 
 
     public function newAction($data): void
-    {
+    {   
+        var_dump($data); // Dump dos dados enviados
+        var_dump($data['euro']); // Dump do valor de 'euro'
+
         $itens = $this->acoes->getByField('customers', 'email', $data['email']);
         if ($itens) {
             $json = json_encode(['resp' => 0, 'mensagem' => "There is already a customer with this email! try a new one."]);
@@ -134,7 +137,7 @@ class AppCustomers
                     $cli->id_customer = $item->id;
                     $cli->cnpj = $data['cnpj'];
                     $cli->special_client = $data['special_client'];
-                    $cli->euro = $data['euro'];
+                    $cli->euro = isset($data['euro']) ? true : false; // Campo 'euro'
                     $cli->save();
 
                     //dd($cli);
@@ -174,7 +177,6 @@ class AppCustomers
                 'categoryCustomer' => $this->acoes->getFind('customerCategory'),
                 'state' => $this->acoes->getFind('addressState'),
                 'country' => $this->acoes->getFind('addressCountry'),
-                'value' => $client->value // Adicione este campo para exibir o valor atual da coluna 'value'
             ]);
         } else {
             redirect("/login");
@@ -183,6 +185,8 @@ class AppCustomers
 
     public function updateAction($data): void
     {
+        
+
         $cli = (new Customers())->findById($data['id']);
         $cli->id_salesman = $data['id_salesman'];
         $cli->id_category_customer = $data['id_category_customer'];
@@ -197,8 +201,7 @@ class AppCustomers
         $cli->bio = $data['bio'];
         $cli->cnpj = $data['cnpj'];
         $cli->special_client = $data['special_client'];
-        $cli->euro = $data['euro'];
-        $cli->value = isset($data['value']) ? 1 : 0; // Atualiza o valor da coluna 'value' com base no checkbox
+        $cli->euro = isset($data['euro']) ? true : false; // Campo 'euro'
         $cli->save();
 
         if ($cli->id > 0) {
