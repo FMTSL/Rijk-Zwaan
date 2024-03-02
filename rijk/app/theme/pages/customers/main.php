@@ -61,22 +61,17 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                           <span class="pr-3">Euro Status:</span>
                           <div class="d-flex justify-content-end">
                               <select class="custom-select" name="euroStatus" id="euroFilter">
-                                  <option value="" disabled selected>All</option>
+                                  <option value="">All</option>
                                   <option value="true">Yes</option>
                                   <option value="false">No</option>
                               </select>
                           </div>
                       </div>
                   </div>
-
-                    
                   </div>
                   <div id="root"></div>
 
-
                 </div>
-
-
               </div>
             </div>
           </div>
@@ -103,7 +98,6 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
                     <input type="text" class="form-control " placeholder="" name="relation_number" id="relation_number"
                       maxlength="9">
               </div>
-
             </div>
 
             <div class="col-md-8">
@@ -114,12 +108,17 @@ include __DIR__ . "/../../template/sidebar.php"; ?>
 
             </div>
 
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="1" id="euro" name="euro">
-              <label class="form-check-label" for="euro">
-                Trabalha em EURO
-              </label>
-            </div>  
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="form-group position-relative mb-4">
+                        <label for="euro">Euro</label>
+                        <select class="form-select form-control" id="euro" name="euro">
+                            <option value="false" <?= $client->euro == 'false' ? 'selected' : ''; ?>>No</option>
+                            <option value="true" <?= $client->euro == 'true' ? 'selected' : ''; ?>>Yes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
           </div>
 
